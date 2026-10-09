@@ -4,6 +4,7 @@ build-backend = "scikit_build_core.build"
 
 [project]
 name = "trexio"
+# Hard-coded for the 0.1.x line; dynamic versioning is a Phase 5 item.
 version = "0.1.0"
 description = "Python API of the TREXIO library (nanobind binding, SWIG-free)"
 readme = "README.md"
@@ -22,9 +23,15 @@ dependencies = ["numpy>=1.22"]
 Homepage = "https://github.com/TREX-CoE/trexio"
 
 [tool.scikit-build]
+# TREXIO C library (libtrexio) is a system dependency: install it on the
+# machine (`module load trexio`, conda-forge, or local prefix ~/.local/cmake).
+# See README "Requirements".
 minimum-version = "0.9"
 build-dir = "build/{wheel_tag}"
-wheel.packages = []
+
+[tool.scikit-build.wheel]
+# Layout A: package  ->  site-packages/trexio/{__init__.py, pytrexio.<tag>.so, _version.py}
+packages = ["api/trexio"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

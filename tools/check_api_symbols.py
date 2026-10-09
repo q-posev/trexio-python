@@ -13,7 +13,11 @@ NAMES = ROOT / "tools" / "required_api.names"
 
 def required_names():
     src = API.read_text(encoding="utf-8")
-    return sorted(set(re.findall(r"\bpytr\.([A-Za-z_0-9]+)\s*\(", src)))
+    # Capture every "pytr.<name>" reference -- both calls "pytr.f(...)" and
+    # attribute access "pytr.TREXIO_DELIM" (a constant, not a call). The latter
+    # is why this yields 878, not 877: the cross-check regex in the plan
+    # (grep -oE "pytr[.][a-zA-Z_0-9]+") is the authoritative list.
+    return sorted(set(re.findall(r"\bpytr\.([A-Za-z_0-9]+)", src)))
 
 
 def main():
@@ -30,10 +34,12 @@ def main():
 
     if ns.verify:
         names = required_names()
+        # Layout A (user-approved): package form -> low level is trexio.pytrexio.
         try:
-            import pytrexio.pytrexio as m
+            import trexio
+            m = trexio.pytrexio
         except Exception as e:
-            print("FAIL: import pytrexio.pytrexio:", e)
+            print("FAIL: import trexio / trexio.pytrexio:", e)
             sys.exit(1)
 
         missing = [n for n in names if not hasattr(m, n)]
