@@ -93,8 +93,9 @@ python tools/parity_api.py              # public-API contract dump (parity tooli
 ```
 
 Loop: regenerate → `pip install -v .` → test. Packaging evidence and the
-SWIG↔nanobind parity record live in `tests/evidence/`; migration notes in
-`docs/migration-from-swig.md`.
+SWIG↔nanobind parity record live in `tests/evidence/`; the runbook for staying
+current when TREXIO itself changes is `docs/updating-with-trexio.md`;
+migration notes in `docs/migration-from-swig.md`.
 
 ## Provenance
 
