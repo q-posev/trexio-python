@@ -1,7 +1,17 @@
 # PROVENANCE — vendored files from TREXIO
 
-All vendored files are taken **unmodified** from the TREXIO repository at the commit shown below.
-They are never hand-edited; re-vendoring = rerun `cp` commands in this file's instructions.
+All vendored files are taken from the TREXIO repository at the commit shown
+below. They are not hand-edited *except* the single documented exception below
+(see also `Plan/STATUS.md`, Phase 3). Re-vendoring = rerun the `cp` commands
+in this file's instructions.
+
+**Documented exception (Phase 3, 2026-10-12):** `api/trexio.py` back-end
+constants block (5 lines) updated to the ABI of TREXIO 2.6.1+0102739
+(`TREXIO_AUTO=2, TREXIO_MEMORY=3, TREXIO_INVALID_BACK_END=4`) after the
+user's rebase renumbered the C enum (TREX-CoE#340). This is exactly what the
+official `src/trexio.py` of the 0102739 tree declares (verified by the Phase-4
+byte-empty parity against a SWIG build of that tree). Re-vendoring from a
+matching TREXIO checkout removes the need for this patch.
 
 | File | TREXIO source path | TREXIO commit (date) |
 |------|-------------------|---------------------|

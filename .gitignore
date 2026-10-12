@@ -4,6 +4,8 @@ dist/
 __pycache__/
 .pytest_cache/
 api/trexio/pytrexio.*.so
+# never commit a built extension
+*.so
 # artifacts of the official TREXIO test suites (text-backend dirs + HDF5 files),
 # created relative to CWD when pytest is run from the repo root
 test_file_py.dir/

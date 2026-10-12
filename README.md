@@ -1,13 +1,104 @@
-# trexio-python
+# trexio (Python)
 
-Python API of the TREXIO library; nanobind low-level core; SWIG-free.
+Python API of the [TREXIO](https://trex-coe.org) library — a **nanobind**
+low-level extension that **replaces the SWIG-generated `pytrexio` binding**.
+Drop-in: `import trexio` behaves exactly as before.
 
-Drop-in replacement for the `trexio` package distributed with TREXIO.
+The package ships the TREXIO Python API (`api/trexio.py`, vendored — see
+`PROVENANCE.md`) on top of a single compiled extension:
+
+```
+trexio/
+├── __init__.py          # the TREXIO Python API (public surface: File, open/close,
+│                        #   read_*/write_*/has_*, to_bitfield_list, …)
+├── _version.py
+└── pytrexio.<tag>.so    # nanobind low-level module (importable as `trexio.pytrexio`)
+```
 
 ## Requirements
 
-- Python >= 3.9
-- numpy >= 1.22
-- TREXIO C library (>= 2.6) installed at `~/.local` or via `module load trexio`
+- Python ≥ 3.9 (tested on 3.12)
+- A C++17 toolchain and CMake ≥ 3.21 (for building from source)
+- **Installed TREXIO ≥ 2.6** C library (`libtrexio`) with the back ends you use:
+  - `module load trexio` (HPC), or a local prefix
+    (`./configure --prefix=…; make && make install` from the TREXIO sources),
+  - the HDF5 back end only if that `libtrexio` was built with HDF5,
+  - the MEMORY back end on TREXIO line 2.6.1+ (built with it — default).
+- `numpy`
 
-See the project Plan (`../Plan/README.md`) and Phase 5 for final user docs.
+## Install
+
+```sh
+pip install ./dist/trexio-0.1.0-*.whl     # prebuilt wheel (preferred)
+# or build from source (build deps handled by scikit-build-core):
+pip install .
+```
+
+The TREXIO C library must be **findable at build time** (`include/trexio.h`
+plus `lib*/libtrexio.so`): set `TREXIO_HOME`, `CMAKE_PREFIX_PATH`, or use the
+default `~/.local`.
+
+At runtime the extension needs to load `libtrexio.so` — export
+`LD_LIBRARY_PATH` / `module load trexio` as you would for any TREXIO client.
+
+## Usage (unchanged public API)
+
+```python
+import numpy as np
+import trexio
+
+trexio_file = trexio.File("benzene.h5", "w", trexio.TREXIO_HDF5)
+trexio.write_nucleus_num(trexio_file, 6)
+trexio.write_nucleus_repulsion(trexio_file, 1)
+trexio.write_nucleus_coord(trexio_file, np.zeros((6, 3)))
+trexio.close(trexio_file)
+
+trexio_file = trexio.File("benzene.h5", "r", trexio.TREXIO_HDF5)
+r = trexio.read_nucleus_num(trexio_file)        # 6
+coords = trexio.read_nucleus_coord(trexio_file)  # numpy array (6, 3)
+trexio.close(trexio_file)
+```
+
+Back ends: `trexio.TREXIO_HDF5`, `trexio.TREXIO_TEXT`, `trexio.TREXIO_AUTO`
+(existing files), `trexio.TREXIO_MEMORY` (in-process; no file needed).
+
+Errors raise `trexio.Error` carrying the TREXIO exit code;
+`trexio.string_of_error(rc)` decodes it.
+
+Low-level access (drop-in stand-in for the old SWIG `pytrexio.pytrexio`):
+`import trexio.pytrexio` — same names, same return shapes (Python list with
+the C return code first), same `File` handle object.
+
+## What changed vs the SWIG release
+
+- **Nothing user-visible** in the public API: same names, same `File` class,
+  same constants, same return shapes (return code first, then results as
+  Python lists — the shapes `api/trexio.py` was written against).
+- The low-level module is one compiled nanobind extension instead of a SWIG
+  `.so` plus generated `.py` shims — the `pytrexio` Python shim files are gone
+  (parity-verified in `tests/evidence/`).
+- `handle.back_end` reads the true back end from the library via
+  `trexio_get_back_end` (TREXIO 2.6 line) — useful after a `TREXIO_AUTO` open.
+- Re-vendoring the Python API (`api/trexio.py`, `third_party/trex.json`) is a
+  documented step (`PROVENANCE.md`) when the TREXIO API line changes; the
+  per-variable surface is regenerated with `tools/gen_binding.py`.
+
+## Development
+
+```sh
+python -m pytest tests/ -v --all        # text+hdf5+memory suites
+python tools/gen_binding.py             # regenerate src/generated_bindings.cpp
+python tools/check_api_symbols.py --verify
+python tools/parity_api.py              # public-API contract dump (parity tooling)
+```
+
+Loop: regenerate → `pip install -v .` → test. Packaging evidence and the
+SWIG↔nanobind parity record live in `tests/evidence/`; migration notes in
+`docs/migration-from-swig.md`.
+
+## Provenance
+
+- TREXIO (C library + original Python API + tests): BSD-3-Clause,
+  TREX Center of Excellence — see `LICENSE`, `PROVENANCE.md`
+  (vendored files and versions), and the pinned `third_party/trex.json`.
+- nanobind: MIT; scikit-build-core: MIT (build-time only).
