@@ -46,7 +46,9 @@ endif()
 # site-packages/trexio/pytrexio.<tag>.so, i.e. importable as `trexio.pytrexio`.
 find_package(Python 3.9 COMPONENTS Interpreter Development.Module REQUIRED)
 find_package(nanobind CONFIG REQUIRED)
-nanobind_add_module(pytrexio src/core.cpp)       # Phases 2/3 add generated_bindings.cpp
+# core.cpp = hand-written core (lifecycle/state/NAO/bitfield/delete);
+# generated_bindings.cpp = per-variable has/read/write (tools/gen_binding.py).
+nanobind_add_module(pytrexio src/core.cpp src/generated_bindings.cpp)
 target_include_directories(pytrexio PRIVATE ${TREXIO_INC})
 target_compile_definitions(pytrexio PRIVATE TREXIO_PKG_VERSION="${TVMAJ}.${TVMIN}.${TVPAT}")
 target_link_libraries(pytrexio PRIVATE ${TREXIO_LIB})
@@ -72,15 +74,18 @@ install(FILES "${CMAKE_SOURCE_DIR}/api/trexio/__init__.py"
               "${CMAKE_SOURCE_DIR}/api/trexio/_version.py"
               DESTINATION "trexio")
 
-# ---------------- Phase 3 hook (no-op until gen_binding.py exists) -------------
+# ---------------- generated bindings (per-variable surface) -------------------
+# Regenerated from required_api.names + the installed trexio.h + trex.json.
 if(EXISTS "${CMAKE_SOURCE_DIR}/tools/gen_binding.py")
   add_custom_command(OUTPUT "${CMAKE_SOURCE_DIR}/src/generated_bindings.cpp"
     COMMAND Python::Interpreter "${CMAKE_SOURCE_DIR}/tools/gen_binding.py"
             --trex-json "${CMAKE_SOURCE_DIR}/third_party/trex.json"
             --out "${CMAKE_SOURCE_DIR}/src/generated_bindings.cpp"
     DEPENDS "${CMAKE_SOURCE_DIR}/tools/gen_binding.py"
-             "${CMAKE_SOURCE_DIR}/third_party/trex.json"
-    COMMENT "Generating pytrexio bindings from trex.json")
+            "${CMAKE_SOURCE_DIR}/third_party/trex.json"
+            "${CMAKE_SOURCE_DIR}/tools/required_api.names"
+            "${TREXIO_INC}/trexio.h"
+    COMMENT "Generating pytrexio per-variable bindings")
   add_custom_target(gen_bindings DEPENDS "${CMAKE_SOURCE_DIR}/src/generated_bindings.cpp")
   add_dependencies(pytrexio gen_bindings)
 endif()

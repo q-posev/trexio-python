@@ -13,87 +13,12 @@
 // The per-variable has/read/write surface (~850 of 878 required names) is
 // added in Phase 3 as src/generated_bindings.cpp (tools/gen_binding.py from
 // third_party/trex.json). Everything in this file is hand-written.
-#include <nanobind/nanobind.h>
-#include <nanobind/stl/string.h>
-#include <trexio.h>
+#include "bind_helpers.hpp"
 
-#include <cstdint>
-#include <string>
-#include <type_traits>
-#include <vector>
-
-namespace nb = nanobind;
-
-namespace {
-
-// ------------------------------- handle -------------------------------------
-// RAII wrapper around trexio_t*. nanobind invokes the C++ destructor of a
-// bound type when the Python object is released / garbage-collected, so the
-// still-open file is closed on GC -- dropping the handle can never leak.
-// An explicit trexio_close() nulls the pointer first and becomes a no-op
-// (mimics SWIG thisown; closes exactly once).
-class TrexioHandle {
- public:
-  explicit TrexioHandle(trexio_t* f) noexcept : ptr_(f) {}
-  TrexioHandle(TrexioHandle&& o) noexcept : ptr_(o.ptr_) { o.ptr_ = nullptr; }
-  TrexioHandle(const TrexioHandle&) = delete;
-  TrexioHandle& operator=(const TrexioHandle&) = delete;
-  ~TrexioHandle() { close(); }
-
-  bool open() const noexcept { return ptr_ != nullptr; }
-  trexio_t* raw() const noexcept { return ptr_; }
-
-  // int by contract: 0 = closed successfully, -1 (TREXIO_FAILURE) = the
-  // handle was already closed/invalid.
-  int close() noexcept {
-    if (!ptr_) return static_cast<int>(TREXIO_FAILURE);
-    int rc = static_cast<int>(trexio_close(ptr_));
-    ptr_ = nullptr;
-    return rc;
-  }
-
-  int back_end() const {
-    back_end_t be = TREXIO_INVALID_BACK_END;
-    if (ptr_ && trexio_get_back_end(ptr_, &be) == TREXIO_SUCCESS)
-      return static_cast<int>(be);
-    return static_cast<int>(TREXIO_FAILURE);
-  }
-
- private:
-  trexio_t* ptr_ = nullptr;
-};
-
-// --------------------------- sequence helpers -------------------------------
-// Convert an iterable of Python scalars (list, tuple, or 1-D numpy array)
-// into a C vector of T. (Phase 3's generated bindings reuse the same idea.)
-template <typename T>
-std::vector<T> cast_vec(const nb::object& o) {
-  std::vector<T> v;
-  if (o) {
-    for (const auto& x : o) {
-      if constexpr (std::is_floating_point_v<T>)
-        v.push_back(static_cast<T>(nb::cast<double>(x)));
-      else
-        v.push_back(static_cast<T>(nb::cast<std::int64_t>(x)));
-    }
-  }
-  return v;
-}
-
-// Vector of T -> a fresh Python list (lists are the ABI container).
-template <typename T>
-nb::object vec_list(const std::vector<T>& v) {
-  nb::list l;
-  for (auto x : v) {
-    if constexpr (std::is_floating_point_v<T>)
-      l.append(nb::float_(x));
-    else
-      l.append(nb::int_(x));
-  }
-  return l;
-}
-
-}  // namespace
+// The per-variable has/read/write surface (~835 names): emitted by
+// tools/gen_binding.py into src/generated_bindings.cpp (do not edit by hand).
+// Declared at global scope: the definition (another TU) is global-namespace.
+void generated_defs(nb::module_& m);
 
 NB_MODULE(pytrexio, m) {
   m.doc() = "TREXIO low-level bindings (nanobind); SWIG-free replacement of "
@@ -109,6 +34,13 @@ NB_MODULE(pytrexio, m) {
 #ifdef TREXIO_DELIM
   m.attr("TREXIO_DELIM") = std::string(TREXIO_DELIM);  // sparse dset delimiter (vendored API constant)
 #endif
+  // Back-end numbers come from the C header of the *linked* libtrexio, so they
+  // can never drift from the library (post-2.6.1: HDF5=0, TEXT=1, AUTO=2, MEMORY=3).
+  m.attr("TREXIO_HDF5") = nb::int_(TREXIO_HDF5);
+  m.attr("TREXIO_TEXT") = nb::int_(TREXIO_TEXT);
+  m.attr("TREXIO_AUTO") = nb::int_(TREXIO_AUTO);
+  m.attr("TREXIO_MEMORY") = nb::int_(TREXIO_MEMORY);
+  m.attr("TREXIO_INVALID_BACK_END") = nb::int_(TREXIO_INVALID_BACK_END);
 
   // ---------------------------- handle class -------------------------------
   nb::class_<TrexioHandle>(m, "trexio_s",
@@ -399,4 +331,9 @@ NB_MODULE(pytrexio, m) {
   DEF_DELETE(jastrow);
   DEF_DELETE(qmc);
 #undef DEF_DELETE
+
+  // -------------------- generated per-variable surface --------------------
+  // trexio_has_* / trexio_read_* / trexio_write_* (including _32/_64/_safe_*/
+  // _size and the offset/sparse families) -- from src/generated_bindings.cpp.
+  generated_defs(m);
 }

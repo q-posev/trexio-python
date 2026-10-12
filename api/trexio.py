@@ -93,12 +93,13 @@ def string_of_error(return_code: int) -> str:
     return pytr.trexio_string_of_error(return_code)
 
 # define TREXIO back ends
+# NOTE: renumbered to match the installed libtrexio 2.6.1 (TREX-CoE#340,
+# post-release master 0102739): AUTO moved to 2, MEMORY to 3.
 TREXIO_HDF5 = 0
 TREXIO_TEXT = 1
-TREXIO_MEMORY = 2
-#TREXIO_JSON = 3
-TREXIO_INVALID_BACK_END = 3
-TREXIO_AUTO = TREXIO_INVALID_BACK_END
+TREXIO_AUTO = 2
+TREXIO_MEMORY = 3
+TREXIO_INVALID_BACK_END = 4
 class File:
     """trexio.File class.
 

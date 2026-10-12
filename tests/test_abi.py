@@ -112,6 +112,60 @@ def test_has_backend(h):
     assert pytr.trexio_has_back_end(1) is True
 
 
+# ------------- back-end rebase (TREXIO 2.6.1+0102739, TREX-CoE#340) --------
+def test_backend_constants_match_header():
+    # module constants must track the linked library's header
+    assert (pytr.TREXIO_HDF5, pytr.TREXIO_TEXT, pytr.TREXIO_AUTO, pytr.TREXIO_MEMORY) == (0, 1, 2, 3)
+    assert pytr.TREXIO_INVALID_BACK_END == 4
+
+
+def test_has_backend_full_range():
+    # HDF5/TEXT/MEMORY are real back-ends; AUTO is a sentinel and INVALID is out of range
+    for be in (pytr.TREXIO_HDF5, pytr.TREXIO_TEXT, pytr.TREXIO_MEMORY):
+        assert pytr.trexio_has_backend(be) is True
+    assert pytr.trexio_has_backend(pytr.TREXIO_AUTO) is False
+    assert pytr.trexio_has_backend(pytr.TREXIO_INVALID_BACK_END) is False
+
+
+def test_memory_backend_roundtrip(tmp_path):
+    # MEMORY is now a first-class back-end (number 3); the file stays in memory
+    r = pytr.trexio_open(str(tmp_path / "mem_ephemeral"), "w", pytr.TREXIO_MEMORY)
+    assert isinstance(r, list) and len(r) == 2
+    h, rc = r
+    assert rc == 0
+    assert h.back_end == pytr.TREXIO_MEMORY
+    assert pytr.trexio_write_nucleus_num(h, 2) == 0
+    rc, v = pytr.trexio_read_nucleus_num(h)
+    assert (rc, v) == (0, 2)
+    assert pytr.trexio_close(h) == 0
+
+
+def test_memory_backend_read_mode_rejected():
+    # post-2.6.1: MEMORY + 'r' is explicitly rejected with INVALID_ARG_2
+    rc = pytr.trexio_open("ephemeral_path", "r", pytr.TREXIO_MEMORY)
+    assert isinstance(rc, int) and rc == 2  # TREXIO_INVALID_ARG_2
+
+
+def test_auto_open_requires_existing_file(tmp_path):
+    # post-2.6.1: AUTO can no longer *create* a file -> TREXIO_FILE_ERROR (18)
+    assert pytr.trexio_open(str(tmp_path / "ghost.h5"), "w", pytr.TREXIO_AUTO) == 18
+    assert pytr.trexio_open(str(tmp_path / "ghost"), "w", pytr.TREXIO_AUTO) == 18
+
+
+def test_auto_opens_existing_file(tmp_path, backend):
+    # AUTO in 'r' mode still auto-detects an existing file
+    ext = "auto.h5" if backend == "hdf5" else "auto"
+    h = _open(tmp_path / ext, BACKENDS[backend])
+    assert pytr.trexio_write_nucleus_num(h, 1) == 0
+    assert pytr.trexio_close(h) == 0
+    r = pytr.trexio_open(str(tmp_path / ext), "r", pytr.TREXIO_AUTO)
+    assert isinstance(r, list) and len(r) == 2
+    h2, rc = r
+    assert rc == 0
+    assert h2.back_end == BACKENDS[backend]
+    assert pytr.trexio_close(h2) == 0
+
+
 def test_string_of_error():
     assert pytr.trexio_string_of_error(11) == "Element absent"
     assert isinstance(pytr.trexio_string_of_error(15), str)

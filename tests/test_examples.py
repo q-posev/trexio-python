@@ -221,7 +221,7 @@ def test_energy_path_roundtrip(tmp_path, backend):
     eri = [
         [0, 0, 0, 0, 0.5],
         [0, 0, 1, 1, 0.3],
-        [0, 1, 1, 0, 0.2],
+        [0, 1, 1, 1, 0.2],
     ]
     # sparse 2-RDM entries (i, j, k, l, value), 0-based
     rdm = [
