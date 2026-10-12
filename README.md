@@ -92,10 +92,19 @@ python tools/check_api_symbols.py --verify
 python tools/parity_api.py              # public-API contract dump (parity tooling)
 ```
 
-Loop: regenerate → `pip install -v .` → test. Packaging evidence and the
-SWIG↔nanobind parity record live in `tests/evidence/`; the runbook for staying
-current when TREXIO itself changes is `docs/updating-with-trexio.md`;
-migration notes in `docs/migration-from-swig.md`.
+**File discipline** (full breakdown in [`docs/package-layout.md`](docs/package-layout.md)):
+`src/generated_bindings.cpp` and `tools/required_api.names` are **generated** —
+regenerate, never hand-edit. `api/trexio.py`, `api/pytrexio/*`, and
+`third_party/trex.json` are **vendored** — re-copy them on a new TREXIO release.
+`src/core.cpp`, `src/bind_helpers.hpp`, `tools/gen_binding.py`, and `tests/` are
+**hand-maintained** — edit only when the release requires it.
+
+Loop: regenerate → `pip install -v .` → test. The runbook for staying current
+when TREXIO itself changes (incl. "which files to touch, by case") is
+`docs/updating-with-trexio.md`; migration-from-SWIG notes are in
+`docs/migration-from-swig.md`; source layout of the shipped package is in
+`docs/package-layout.md`. Packaging evidence and the SWIG↔nanobind parity record
+live in `tests/evidence/`.
 
 ## Provenance
 
