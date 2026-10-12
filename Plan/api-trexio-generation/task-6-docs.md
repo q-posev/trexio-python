@@ -17,9 +17,10 @@ done yet, base the wording on `references/10-architecture.md`; it describes the 
   `PYTREXIO_MAX_STR_LENGTH`) — breaks the import cycle.
 - `api/trexio_gen.py` = **GENERATED** surface (`tools/gen_trexio_py.py`), 862 `has_/read_/write_/delete_`;
   symlinked into the wheel as `trexio/trexio_gen.py`.
-- The 2 PROVENANCE exceptions are now: **Phase 3** = constants live in `_base.py` (core; match the
-  installed lib); **Phase 4** = `write_basis_r_power` = a generator **OVERRIDES** behavior (client-compat,
-  permanent), NOT a "patch to the vendored file."
+- The ONLY surviving PROVENANCE item is **Phase 3** = constants live in `_base.py` (core; match the
+  installed lib). The old **Phase 4** `write_basis_r_power` exception was **removed 2026-10-14**
+  (a misdiagnosis); `write_basis_r_power` is generated with the standard int64 SAFE_ARRAY_W template,
+  like every other int64 array (`write_basis_nao_grid_start`, `write_auxbasis_r_power`, ...).
 
 ## Edits
 
@@ -28,14 +29,13 @@ done yet, base the wording on `references/10-architecture.md`; it describes the 
    `third_party/trex.json`. **`api/trexio.py` is no longer "vendored verbatim"** — it is now the
    hand-written **core** (adopted once from `src/trexio.py`, then maintained), and **`api/trexio_gen.py`
    is generated** from `trex.json` + the installed `trexio.h` (see the Plan).
-2. Rewrite the two exception paragraphs:
+2. Exception paragraphs — only **Phase 3** remains (the old Phase 4 is gone):
    - **Phase 3 (constants):** restate as a normal core fact — `_base.py` declares the back-end id
      values to match TREXIO 2.6.1 (TREX-CoE#340 renumber: `AUTO=2, MEMORY=3`). A release renumber →
      update `_base.py`. (Drop the "exception" framing.)
-   - **Phase 4 (`write_basis_r_power`):** restate as a **client-compatibility behavior** — clients
-     pass a 1-D float list for an int64 field; trexio-python normalizes it. Now emitted by the
-     generator's `OVERRIDES` in `tools/gen_trexio_py.py` (reference: `Plan/api-trexio-generation/references/30`).
-     Explicitly mark it **permanent, not a temp patch**.
+   - **Phase 4 (`write_basis_r_power`):** already **removed** from `PROVENANCE.md` (2026-10-14,
+     misdiagnosis) — do **not** re-add it. `write_basis_r_power` is a normal generated int64 array
+     writer (standard SAFE_ARRAY_W template, same body as `write_basis_nao_grid_start`).
 3. Update the file table:
    | File | How it's kept current |
    |---|---|

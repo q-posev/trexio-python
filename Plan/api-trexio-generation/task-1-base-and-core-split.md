@@ -93,7 +93,9 @@ structure. No logic was added or removed. `api/trexio.py` line count drops from 
 ## Notes / gotchas
 - The back-ends constants (`TREXIO_AUTO=2`, `TREXIO_MEMORY=3`, `TREXIO_INVALID_BACK_END=4`) come
   from the Phase-3 PROVENANCE exception — keep them here (references/30 §a).
-- `write_basis_r_power` and every other int64 writer move to gen verbatim here; task-3 will
-  re-emit them (with the r_power forced-flatten override). **Do not "fix" any body in this task.**
+- `write_basis_r_power` and every other int64 writer move to gen here (a verbatim move); task-3 will
+  re-emit all of them with the **standard** SAFE_ARRAY_W template — including `write_basis_r_power`
+  (no per-name override; the old Phase-4 forced-flatten is dropped). **Do not "fix" any body in this
+  task.**
 - If task-3 (generator) is already partway when you run, coordinate via the branch/worktree — you're
   the owner of the file layout, task-3 only rewrites the *bodies* of `api/trexio_gen.py`.

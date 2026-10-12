@@ -47,7 +47,7 @@ python -m pytest tests/ --all --quiet
 wc -l api/trexio.py api/trexio_gen.py api/trexio/_base.py
 echo "api/trexio.py was 35,038 lines BEFORE; expect ~5k–9k now."
 
-# 9) The two PROVENANCE behaviors
+# 9) The Phase-3 constants (and confirm r_power uses the standard int64 writer)
 grep -E "define TREXIO_(AUTO|MEMORY)" $HOME/.local/include/trexio.h
 grep -n "write_basis_r_power\|int64" api/trexio_gen.py | head
 
@@ -61,11 +61,11 @@ cp /tmp/task5_gen.log /tmp/task5_build.log Plan/api-trexio-generation/scratch/ta
 - [ ] `check_api_symbols.py --verify` → `missing=0`
 - [ ] `gen_binding.py` → `unhandled=0`, no cross-check warnings
 - [ ] `diff` of `generated_bindings.cpp` → **empty** (C++ preserved)
-- [ ] `check_public_namespace.py` → **PASS** (incl. no `write_basis_r_power` float-list TypeError)
+- [ ] `check_public_namespace.py` → **PASS** (importable; every old name present; round-trips ok)
 - [ ] `pytest tests/ --all --quiet` green **in** the dev venv
 - [ ] `pytest tests/ --all --quiet` green **from the wheel venv**
 - [ ] `wc -l api/trexio.py` ≤ ~10,000 (was 35,038); `api/trexio_gen.py` is generated (banner present)
-- [ ] `grep` shows the Phase-3 constants in `_base.py` and the Phase-4 `write_basis_r_power` override in the gen file
+- [ ] `grep` shows the Phase-3 back-end constants in `_base.py`; `write_basis_r_power` uses the **standard** int64 SAFE_ARRAY_W template (same body as `write_basis_nao_grid_start`)
 - [ ] The 862-wrapper count in `api/trexio_gen.py` matches `wc -l < Plan/.../baseline_surface.txt` (862)
 
 ## Evidence to hand back

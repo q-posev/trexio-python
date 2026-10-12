@@ -10,9 +10,8 @@ Checks:
   2. Every frozen-surface name (baseline_surface.txt) is present on `trexio`.
   3. Core names (File, Error, string_of_error, back-end ids, helpers) present.
   4. Minimal round-trips on a TREXIO_TEXT file: nucleus_num, nucleus_charge, metadata_code.
-  5. write_basis_r_power with a 1-D FLOAT list does NOT raise the int64 "not iterable"
-     TypeError (the PROVENANCE Phase-4 client-compat behavior). A TREXIO.Error (backend
-     validation) is tolerated -> the normalization reached C. The specific TypeError is a FAIL.
+  5. write_basis_r_power is a normal generated int64 writer (the old Phase-4 forced-flatten was
+     removed 2026-10-14 as a misdiagnosis); we only check it is callable — no special path.
 
 Exit 0 = PASS, 1 = FAIL, 2 = environment not ready (build/install first).
 """
@@ -100,21 +99,11 @@ def main():
         gotcode = list(trexio.read_metadata_code(fobj))
         if gotcode != ["alpha", "beta"]:
             failures.append(f"metadata_code round-trip mismatch: {gotcode!r}")
-        # 5) write_basis_r_power with a 1-D float list (Phase-4 behavior)
-        try:
-            try:
-                trexio.write_basis_shell_num(fobj, 2)
-            except Exception:
-                pass
-            trexio.write_basis_r_power(fobj, [0.0, 1.0])
-            print("[ok ] write_basis_r_power([0.0,1.0]) accepted")
-        except TypeError as te:
-            if "not iterable" in str(te).lower() or "float" in str(te).lower():
-                failures.append(f"write_basis_r_power float-list hit the int64 TypeError (Phase-4 regression): {te!r}")
-            else:
-                print(f"[warn] write_basis_r_power TypeError (benign?): {te!r}")
-        except trexio.Error as e:
-            print(f"[ok ] write_basis_r_power reached C; backend rc={e.error} (fields may be incomplete; the float-list normalization path itself passed)")
+        # 5) write_basis_r_power — a normal generated int64 writer; just confirm it is callable.
+        #    (The old "Phase-4" forced-flatten was removed as a misdiagnosis 2026-10-14; it is
+        #     emitted with the standard SAFE_ARRAY_W template, same as write_basis_nao_grid_start.)
+        if not callable(getattr(trexio, "write_basis_r_power", None)):
+            failures.append("write_basis_r_power is not callable")
         fobj.close()
     except Exception as e:  # noqa: BLE001
         failures.append(f"round-trip raised: {e!r}")

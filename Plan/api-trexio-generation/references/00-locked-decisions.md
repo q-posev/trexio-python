@@ -45,8 +45,10 @@ with explicit sign-off.
   `evaluate_nao_radial_all`.
 - `Error`, `string_of_error`, and all module constants (`TREXIO_*` codes, back-end ids,
   `PYTREXIO_MAX_STR_LENGTH`) → moved to `_base.py`.
-- The two PROVENANCE behaviors/constants (see README table): constants → `_base.py`;
-  `write_basis_r_power` → generator OVERRIDES.
+- One remaining PROVENANCE item: the Phase-3 back-end constants → `_base.py`.
+  The older Phase-4 `write_basis_r_power` "exception" (a misdiagnosis) was removed on
+  2026-10-14; `write_basis_r_power` is generated with the standard int64 SAFE_ARRAY_W
+  template, like each other `write_basis_*`.
 
 ## Explicit out-of-scope
 - Changing the C++ binding (`generated_bindings.cpp` output stays **byte-identical**;

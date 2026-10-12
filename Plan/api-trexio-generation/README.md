@@ -10,16 +10,16 @@ only the small stable **core** hand-maintained.
 calls must be byte-identical to today (862 wrappers, 877 C symbols). `scratch/` and the
 frozen baselines are there to prove it without relying on memory.
 
-## The two PROVENANCE.md "documented exceptions" — how this plan treats them
+## The PROVENANCE "documented exceptions" — how this plan treats them
 
 | PROVENANCE exception | Nature | Plan treatment |
 |---|---|---|
 | **Phase 3** — back-end constants (`TREXIO_AUTO=2, TREXIO_MEMORY=3, ...`) | ABI value set for 2.6.1+0102739 (TREX-CoE#340 renumber) | Lives in `api/trexio/_base.py` (core). Must match the installed `trexio.h`/lib. A release that renumbers them → small update here (or emit from the header). **Not** a real "exception" once the core is our own. |
-| **Phase 4** — `write_basis_r_power` list→int64 | **Client-compatibility BEHAVIOR**, not a temp patch. Clients (trexio_tools) pass a 1-D float list for an int64 field; the int64 binding rejects float elements. trexio-python normalizes it so it "behaves properly". | Generator **OVERRIDES** hook: the `write_basis_r_power` emitter uses the "unconditional int64-flatten-for-list/tuple" template (see `references/30` → Known behaviors). **Conservative scope: only `write_basis_r_power`, matching today exactly.** Optional follow-up (NOT default): apply the same normalization to *all* int64 writers (upstream-recommended) — do only if the owner asks. |
+| **Phase 4** — `write_basis_r_power` list→int64 | ~~Client-compat behavior~~ — **removed 2026-10-14 as a misdiagnosis** | Generate `write_basis_r_power` with the **standard SAFE_ARRAY_W int64 template** (same body as `write_basis_nao_grid_start`). **No** OVERRIDES, **no** forced-flatten special case. The "client passes a float list" issue is `trexio_tools`-side, not trexio-python's. |
 
-**Read this before anything else:** the Phase-4 case is *preserve, never drop*; it is a
-legit part of trexio-python's behavior. Do **not** "clean it up" by adopting the generic
-int64 writer template — that would re-introduce the float-list crash.
+**Read this before anything else:** there is exactly **one** behavior that must survive the split —
+the Phase-3 back-end constants, kept in `_base.py`. `write_basis_r_power` is generated **like every
+other int64 array**; the old "preserve the forced-flatten" note is gone (2026-10-14).
 
 ## Directory contents
 
@@ -29,7 +29,8 @@ references/
   00-locked-decisions.md           -> the 3 decisions + rationale + scope (what IS / IS NOT generated)
   10-architecture.md               -> target layout, symlink+packaging, import-cycle fix, public-name flow
   20-shape-and-templates.md        -> THE key file: shape->C-symbol table + exact Python bodies for every family
-  30-constraints-and-gates.md      -> "don't touch" list, invariants, known behaviors (r_power), env+verify snippet
+  30-constraints-and-gates.md      -> "don't touch" list, invariants, the Phase-3 constants to preserve
+                                       (r_power = standard int64 writer), env+verify snippet
 task-1-base-and-core-split.md      -> independent session A
 task-2-extract-api-model.md        -> independent session B
 task-3-python-emitters.md          -> independent session C  (depends on 1 + 2)
@@ -75,9 +76,9 @@ Track B (docs, independent — safe to start now):
 - [ ] `python -m pytest tests/ --all` green (**incl.** `test_abi.py`, `test_pytrexio.py`, memory suite).
 - [ ] Wheel build + wheel-venv `import trexio; pytest tests/ --all` green.
 - [ ] `wc -l api/trexio.py` ≈ 5–9k (was **35,038**); `api/trexio_gen.py` generated, never hand-edited.
-- [ ] `write_basis_r_power` normalization present **and** covered by a test (add one if none).
-- [ ] Docs updated: `api/trexio.py` references re-pointed to core/generated; both PROVENANCE
-      exceptions re-described as "core" / "generator OVERRIDES" respectively.
+- [ ] `write_basis_r_power` uses the **standard int64 SAFE_ARRAY_W** template (body identical to `write_basis_nao_grid_start`).
+- [ ] Docs updated: `api/trexio.py` references re-pointed to core/generated; PROVENANCE retains only the
+      Phase-3 constants item (Phase-4 removed as a misdiagnosis on 2026-10-14).
 
 ## Shared environment (copy into each session)
 

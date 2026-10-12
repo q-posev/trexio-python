@@ -99,8 +99,9 @@ ends with `from . import trexio_gen` (which binds `read_nucleus_charge` in the `
   (`parse_protos`, `locate_group_var`, `classify`, `Rec`, the family table, `SKIP`/`EXTRA`/
   `LOW_DIM_FN`). Factor it out so both emitters use ONE definition → they can't drift.
 - **Python emitter** = for each `Rec`, emit the body from `references/20` (one template per
-  family; dims resolved from `trex.json` via `locate_group_var`). A `OVERRIDES` dict lets a
-  specific name (e.g. `write_basis_r_power`) use a bespoke template instead of the family one.
+  family; dims resolved from `trex.json` via `locate_group_var`). An optional `OVERRIDES`
+  dict can supply a bespoke template for a specific name, but **no name in the current
+  surface uses one** (the old Phase-4 `write_basis_r_power` entry was removed on 2026-10-14).
 - **Same inputs, same exit-on-unknown** as `gen_binding.py`, so a new family in a release is
   a `TODO:` halt on *both* the C++ and Python outputs (you won't get a C++ that compiles and
   a Python that lies).
