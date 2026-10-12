@@ -5,7 +5,7 @@ build-backend = "scikit_build_core.build"
 [project]
 name = "trexio"
 version = "0.1.0"
-description = "Python API of the TREXIO library (nanobind binding, SWIG-free)"
+description = "Python API of the TREXIO library (nanobind binding)"
 readme = "README.md"
 requires-python = ">=3.9"
 license = "BSD-3-Clause"
@@ -27,8 +27,7 @@ Homepage = "https://github.com/TREX-CoE/trexio"
 
 [tool.scikit-build]
 # TREXIO C library (libtrexio) is a system dependency: install it on the
-# machine (`module load trexio`, conda-forge, or local prefix ~/.local/cmake).
-# See README "Requirements".
+# machine. See README "Requirements".
 minimum-version = "0.9"
 build-dir = "build/{wheel_tag}"
 
