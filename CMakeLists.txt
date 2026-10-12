@@ -3,24 +3,69 @@ project(trexio LANGUAGES C CXX)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-# ------------- locate TREXIO (installed prefix: include/ + lib{,64}/) ----------
-set(TREXIO_HOME "$ENV{TREXIO_HOME}" CACHE PATH "TREXIO install prefix (e.g. $HOME/.local)")
-if(NOT TREXIO_HOME)
-  get_filename_component(_home "$ENV{HOME}" ABSOLUTE)
-  if(EXISTS "${_home}/.local/include/trexio.h")
-    set(TREXIO_HOME "${_home}/.local")
+# ---------------------------------------------------------------------------
+#  Locate TREXIO -- auto-discovered (like ./configure):
+#    1. pkg-config           (respects PKG_CONFIG_PATH, module-load, etc.)
+#    2. find_package-style   (standard CMake convention)
+#    3. Standard system paths (/usr/local, /opt)
+#    4. Fallback to pkg-config + standard search
+# ---------------------------------------------------------------------------
+
+# 1) Try pkg-config first (most robust way)
+find_package(PkgConfig QUIET)
+if(PKG_CONFIG_FOUND)
+  pkg_check_modules(PC_TREXIO QUIET trexio)
+endif()
+
+# 2) Try standard CMake find_package approach  
+find_path(TREXIO_INCLUDE_DIR 
+  NAMES trexio.h
+  PATHS /usr/local/include /opt/include
+  NO_DEFAULT_PATH
+)
+
+# 3) Look for TREXIO using the standard CMake prefix search paths
+if(NOT TREXIO_INCLUDE_DIR OR NOT EXISTS "${TREXIO_INCLUDE_DIR}/trexio.h")
+  find_path(TREXIO_INCLUDE_DIR NAMES trexio.h)
+endif()
+
+# If we found an include directory, determine the prefix
+if(TREXIO_INCLUDE_DIR)
+  get_filename_component(TREXIO_PREFIX "${TREXIO_INCLUDE_DIR}" DIRECTORY)
+else()
+  # Fallback - try pkg-config as last resort
+  if(PC_TREXIO_FOUND AND PC_TREXIO_PREFIX)
+    set(TREXIO_PREFIX "${PC_TREXIO_PREFIX}")
+    set(TREXIO_INCLUDE_DIR "${PC_TREXIO_PREFIX}/include")
+  else()
+    message(FATAL_ERROR "TREXIO not found. Ensure the TREXIO library is installed and visible via pkg-config or standard search paths.")
   endif()
 endif()
-if(NOT TREXIO_HOME OR NOT EXISTS "${TREXIO_HOME}/include/trexio.h")
-  message(FATAL_ERROR "TREXIO not found (need <prefix>/include/trexio.h). "
-                      "module load trexio, install locally, or -DTREXIO_HOME=...")
-endif()
-set(TREXIO_INC "${TREXIO_HOME}/include")
-find_library(TREXIO_LIB trexio PATHS "${TREXIO_HOME}/lib64" "${TREXIO_HOME}/lib" NO_DEFAULT_PATH)
+
+set(TREXIO_INC "${TREXIO_INCLUDE_DIR}")
+
+# Find the library
+find_library(TREXIO_LIB 
+  NAMES trexio
+  PATHS 
+    "${TREXIO_PREFIX}/lib64" 
+    "${TREXIO_PREFIX}/lib"
+    /usr/local/lib64 
+    /usr/local/lib
+    /opt/lib64
+    /opt/lib
+  NO_DEFAULT_PATH)
+  
 if(NOT TREXIO_LIB)
-  message(FATAL_ERROR "libtrexio not found under ${TREXIO_HOME}")
+  # Try standard library search as final fallback
+  find_library(TREXIO_LIB NAMES trexio)
 endif()
-message(STATUS "TREXIO_HOME=${TREXIO_HOME}  lib=${TREXIO_LIB}")
+
+if(NOT TREXIO_LIB)
+  message(FATAL_ERROR "libtrexio not found under ${TREXIO_PREFIX}")
+endif()
+
+message(STATUS "TREXIO_HOME=${TREXIO_PREFIX}  lib=${TREXIO_LIB}")
 
 # ---------------- version + accessor guards (from installed header) -----------
 file(READ "${TREXIO_INC}/trexio.h" _hdr)
@@ -81,6 +126,7 @@ if(EXISTS "${CMAKE_SOURCE_DIR}/tools/gen_binding.py")
     COMMAND Python::Interpreter "${CMAKE_SOURCE_DIR}/tools/gen_binding.py"
             --trex-json "${CMAKE_SOURCE_DIR}/third_party/trex.json"
             --out "${CMAKE_SOURCE_DIR}/src/generated_bindings.cpp"
+            --trexio-header "${TREXIO_INC}/trexio.h"
     DEPENDS "${CMAKE_SOURCE_DIR}/tools/gen_binding.py"
             "${CMAKE_SOURCE_DIR}/third_party/trex.json"
             "${CMAKE_SOURCE_DIR}/tools/required_api.names"
