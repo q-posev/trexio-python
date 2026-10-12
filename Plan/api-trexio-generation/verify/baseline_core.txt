@@ -1,0 +1,13 @@
+86:def string_of_error(return_code: int) -> str:
+219:def _open(file_name: str, mode: str, back_end: int):
+264:def _close(trexio_file):
+274:def flush(trexio_file):
+284:def _inquire(file_name: str) -> bool:
+295:def _cp(source: str, destination: str):
+319:def info():
+326:def to_bitfield_list(n_int: int, orbitals: list) -> list:
+350:def to_orbital_list(n_int: int, determinant: list) -> list:
+376:def to_orbital_list_up_dn(n_int: int, determinant: list) -> tuple:
+406:def convert_nao_radius(r: float, grid_r) -> float:
+431:def evaluate_nao_radial(shell_index, r, grid_start, grid_size, grid_r, interpolator, normalization) -> float:
+460:def evaluate_nao_radial_all(nucleus_index, nucleus_coords, grid_start,

@@ -1,0 +1,862 @@
+496:def delete_metadata(trexio_file) -> None:
+513:def delete_nucleus(trexio_file) -> None:
+530:def delete_cell(trexio_file) -> None:
+547:def delete_pbc(trexio_file) -> None:
+564:def delete_electron(trexio_file) -> None:
+581:def delete_state(trexio_file) -> None:
+598:def delete_basis(trexio_file) -> None:
+615:def delete_auxbasis(trexio_file) -> None:
+632:def delete_auxbasis2(trexio_file) -> None:
+649:def delete_ecp(trexio_file) -> None:
+666:def delete_grid(trexio_file) -> None:
+683:def delete_ao(trexio_file) -> None:
+700:def delete_ao_1e_int(trexio_file) -> None:
+717:def delete_ao_2e_int(trexio_file) -> None:
+734:def delete_mo(trexio_file) -> None:
+751:def delete_mo_1e_int(trexio_file) -> None:
+768:def delete_mo_2e_int(trexio_file) -> None:
+785:def delete_auxao(trexio_file) -> None:
+802:def delete_auxao2(trexio_file) -> None:
+819:def delete_densityfit(trexio_file) -> None:
+836:def delete_determinant(trexio_file) -> None:
+853:def delete_csf(trexio_file) -> None:
+870:def delete_amplitude(trexio_file) -> None:
+887:def delete_rdm(trexio_file) -> None:
+904:def delete_jastrow(trexio_file) -> None:
+921:def delete_qmc(trexio_file) -> None:
+938:def has_metadata_code_num(trexio_file) -> bool:
+957:def has_metadata_author_num(trexio_file) -> bool:
+976:def has_metadata_unsafe(trexio_file) -> bool:
+995:def has_nucleus_num(trexio_file) -> bool:
+1014:def has_nucleus_repulsion(trexio_file) -> bool:
+1033:def has_cell_two_pi(trexio_file) -> bool:
+1052:def has_pbc_periodic(trexio_file) -> bool:
+1071:def has_pbc_k_point_num(trexio_file) -> bool:
+1090:def has_pbc_madelung(trexio_file) -> bool:
+1109:def has_electron_num(trexio_file) -> bool:
+1128:def has_electron_up_num(trexio_file) -> bool:
+1147:def has_electron_dn_num(trexio_file) -> bool:
+1166:def has_state_num(trexio_file) -> bool:
+1185:def has_state_id(trexio_file) -> bool:
+1204:def has_state_energy(trexio_file) -> bool:
+1223:def has_basis_prim_num(trexio_file) -> bool:
+1242:def has_basis_shell_num(trexio_file) -> bool:
+1261:def has_basis_nao_grid_num(trexio_file) -> bool:
+1280:def has_basis_interp_coeff_cnt(trexio_file) -> bool:
+1299:def has_basis_e_cut(trexio_file) -> bool:
+1318:def has_auxbasis_prim_num(trexio_file) -> bool:
+1337:def has_auxbasis_shell_num(trexio_file) -> bool:
+1356:def has_auxbasis_nao_grid_num(trexio_file) -> bool:
+1375:def has_auxbasis_interp_coeff_cnt(trexio_file) -> bool:
+1394:def has_auxbasis_e_cut(trexio_file) -> bool:
+1413:def has_auxbasis2_prim_num(trexio_file) -> bool:
+1432:def has_auxbasis2_shell_num(trexio_file) -> bool:
+1451:def has_auxbasis2_nao_grid_num(trexio_file) -> bool:
+1470:def has_auxbasis2_interp_coeff_cnt(trexio_file) -> bool:
+1489:def has_auxbasis2_e_cut(trexio_file) -> bool:
+1508:def has_ecp_num(trexio_file) -> bool:
+1527:def has_grid_rad_precision(trexio_file) -> bool:
+1546:def has_grid_num(trexio_file) -> bool:
+1565:def has_grid_max_ang_num(trexio_file) -> bool:
+1584:def has_grid_min_ang_num(trexio_file) -> bool:
+1603:def has_grid_ang_num(trexio_file) -> bool:
+1622:def has_grid_rad_num(trexio_file) -> bool:
+1641:def has_ao_cartesian(trexio_file) -> bool:
+1660:def has_ao_num(trexio_file) -> bool:
+1679:def has_ao_2e_int_eri_cholesky_num(trexio_file) -> bool:
+1698:def has_ao_2e_int_eri_lr_cholesky_num(trexio_file) -> bool:
+1717:def has_mo_num(trexio_file) -> bool:
+1736:def has_mo_electronic_temperature(trexio_file) -> bool:
+1755:def has_mo_2e_int_eri_cholesky_num(trexio_file) -> bool:
+1774:def has_mo_2e_int_eri_lr_cholesky_num(trexio_file) -> bool:
+1793:def has_auxao_cartesian(trexio_file) -> bool:
+1812:def has_auxao_num(trexio_file) -> bool:
+1831:def has_auxao2_cartesian(trexio_file) -> bool:
+1850:def has_auxao2_num(trexio_file) -> bool:
+1869:def has_densityfit_num(trexio_file) -> bool:
+1888:def has_determinant_num(trexio_file) -> bool:
+1907:def has_csf_num(trexio_file) -> bool:
+1926:def has_rdm_2e_cholesky_num(trexio_file) -> bool:
+1945:def has_rdm_2e_upup_cholesky_num(trexio_file) -> bool:
+1964:def has_rdm_2e_dndn_cholesky_num(trexio_file) -> bool:
+1983:def has_rdm_2e_updn_cholesky_num(trexio_file) -> bool:
+2002:def has_jastrow_en_num(trexio_file) -> bool:
+2021:def has_jastrow_ee_num(trexio_file) -> bool:
+2040:def has_jastrow_een_num(trexio_file) -> bool:
+2059:def has_jastrow_ee_scaling(trexio_file) -> bool:
+2078:def has_qmc_num(trexio_file) -> bool:
+2097:def has_metadata_package_version(trexio_file) -> bool:
+2116:def has_metadata_description(trexio_file) -> bool:
+2135:def has_nucleus_point_group(trexio_file) -> bool:
+2154:def has_state_current_label(trexio_file) -> bool:
+2173:def has_basis_type(trexio_file) -> bool:
+2192:def has_basis_description(trexio_file) -> bool:
+2211:def has_basis_oscillation_kind(trexio_file) -> bool:
+2230:def has_basis_interpolator_kind(trexio_file) -> bool:
+2249:def has_auxbasis_type(trexio_file) -> bool:
+2268:def has_auxbasis_description(trexio_file) -> bool:
+2287:def has_auxbasis_oscillation_kind(trexio_file) -> bool:
+2306:def has_auxbasis_interpolator_kind(trexio_file) -> bool:
+2325:def has_auxbasis2_type(trexio_file) -> bool:
+2344:def has_auxbasis2_description(trexio_file) -> bool:
+2363:def has_auxbasis2_oscillation_kind(trexio_file) -> bool:
+2382:def has_auxbasis2_interpolator_kind(trexio_file) -> bool:
+2401:def has_grid_description(trexio_file) -> bool:
+2420:def has_mo_type(trexio_file) -> bool:
+2439:def has_jastrow_type(trexio_file) -> bool:
+2458:def has_determinant_coefficient(trexio_file) -> bool:
+2477:def has_csf_coefficient(trexio_file) -> bool:
+2496:def has_nucleus_charge(trexio_file) -> bool:
+2515:def has_nucleus_coord(trexio_file) -> bool:
+2534:def has_cell_a(trexio_file) -> bool:
+2553:def has_cell_b(trexio_file) -> bool:
+2572:def has_cell_c(trexio_file) -> bool:
+2591:def has_cell_g_a(trexio_file) -> bool:
+2610:def has_cell_g_b(trexio_file) -> bool:
+2629:def has_cell_g_c(trexio_file) -> bool:
+2648:def has_pbc_k_point(trexio_file) -> bool:
+2667:def has_pbc_k_point_weight(trexio_file) -> bool:
+2686:def has_basis_nucleus_index(trexio_file) -> bool:
+2705:def has_basis_shell_ang_mom(trexio_file) -> bool:
+2724:def has_basis_shell_factor(trexio_file) -> bool:
+2743:def has_basis_r_power(trexio_file) -> bool:
+2762:def has_basis_nao_grid_start(trexio_file) -> bool:
+2781:def has_basis_nao_grid_size(trexio_file) -> bool:
+2800:def has_basis_shell_index(trexio_file) -> bool:
+2819:def has_basis_exponent(trexio_file) -> bool:
+2838:def has_basis_exponent_im(trexio_file) -> bool:
+2857:def has_basis_coefficient(trexio_file) -> bool:
+2876:def has_basis_coefficient_im(trexio_file) -> bool:
+2895:def has_basis_oscillation_arg(trexio_file) -> bool:
+2914:def has_basis_prim_factor(trexio_file) -> bool:
+2933:def has_basis_nao_grid_radius(trexio_file) -> bool:
+2952:def has_basis_nao_grid_phi(trexio_file) -> bool:
+2971:def has_basis_nao_grid_grad(trexio_file) -> bool:
+2990:def has_basis_nao_grid_lap(trexio_file) -> bool:
+3009:def has_basis_interpolator_phi(trexio_file) -> bool:
+3028:def has_basis_interpolator_grad(trexio_file) -> bool:
+3047:def has_basis_interpolator_lap(trexio_file) -> bool:
+3066:def has_auxbasis_nucleus_index(trexio_file) -> bool:
+3085:def has_auxbasis_shell_ang_mom(trexio_file) -> bool:
+3104:def has_auxbasis_shell_factor(trexio_file) -> bool:
+3123:def has_auxbasis_r_power(trexio_file) -> bool:
+3142:def has_auxbasis_nao_grid_start(trexio_file) -> bool:
+3161:def has_auxbasis_nao_grid_size(trexio_file) -> bool:
+3180:def has_auxbasis_shell_index(trexio_file) -> bool:
+3199:def has_auxbasis_exponent(trexio_file) -> bool:
+3218:def has_auxbasis_exponent_im(trexio_file) -> bool:
+3237:def has_auxbasis_coefficient(trexio_file) -> bool:
+3256:def has_auxbasis_coefficient_im(trexio_file) -> bool:
+3275:def has_auxbasis_oscillation_arg(trexio_file) -> bool:
+3294:def has_auxbasis_prim_factor(trexio_file) -> bool:
+3313:def has_auxbasis_nao_grid_radius(trexio_file) -> bool:
+3332:def has_auxbasis_nao_grid_phi(trexio_file) -> bool:
+3351:def has_auxbasis_nao_grid_grad(trexio_file) -> bool:
+3370:def has_auxbasis_nao_grid_lap(trexio_file) -> bool:
+3389:def has_auxbasis_interpolator_phi(trexio_file) -> bool:
+3408:def has_auxbasis_interpolator_grad(trexio_file) -> bool:
+3427:def has_auxbasis_interpolator_lap(trexio_file) -> bool:
+3446:def has_auxbasis2_nucleus_index(trexio_file) -> bool:
+3465:def has_auxbasis2_shell_ang_mom(trexio_file) -> bool:
+3484:def has_auxbasis2_shell_factor(trexio_file) -> bool:
+3503:def has_auxbasis2_r_power(trexio_file) -> bool:
+3522:def has_auxbasis2_nao_grid_start(trexio_file) -> bool:
+3541:def has_auxbasis2_nao_grid_size(trexio_file) -> bool:
+3560:def has_auxbasis2_shell_index(trexio_file) -> bool:
+3579:def has_auxbasis2_exponent(trexio_file) -> bool:
+3598:def has_auxbasis2_exponent_im(trexio_file) -> bool:
+3617:def has_auxbasis2_coefficient(trexio_file) -> bool:
+3636:def has_auxbasis2_coefficient_im(trexio_file) -> bool:
+3655:def has_auxbasis2_oscillation_arg(trexio_file) -> bool:
+3674:def has_auxbasis2_prim_factor(trexio_file) -> bool:
+3693:def has_auxbasis2_nao_grid_radius(trexio_file) -> bool:
+3712:def has_auxbasis2_nao_grid_phi(trexio_file) -> bool:
+3731:def has_auxbasis2_nao_grid_grad(trexio_file) -> bool:
+3750:def has_auxbasis2_nao_grid_lap(trexio_file) -> bool:
+3769:def has_auxbasis2_interpolator_phi(trexio_file) -> bool:
+3788:def has_auxbasis2_interpolator_grad(trexio_file) -> bool:
+3807:def has_auxbasis2_interpolator_lap(trexio_file) -> bool:
+3826:def has_ecp_max_ang_mom_plus_1(trexio_file) -> bool:
+3845:def has_ecp_z_core(trexio_file) -> bool:
+3864:def has_ecp_ang_mom(trexio_file) -> bool:
+3883:def has_ecp_nucleus_index(trexio_file) -> bool:
+3902:def has_ecp_exponent(trexio_file) -> bool:
+3921:def has_ecp_coefficient(trexio_file) -> bool:
+3940:def has_ecp_power(trexio_file) -> bool:
+3959:def has_grid_coord(trexio_file) -> bool:
+3978:def has_grid_weight(trexio_file) -> bool:
+3997:def has_grid_ang_coord(trexio_file) -> bool:
+4016:def has_grid_ang_weight(trexio_file) -> bool:
+4035:def has_grid_rad_coord(trexio_file) -> bool:
+4054:def has_grid_rad_weight(trexio_file) -> bool:
+4073:def has_ao_shell(trexio_file) -> bool:
+4092:def has_ao_normalization(trexio_file) -> bool:
+4111:def has_ao_cartesian_shell(trexio_file) -> bool:
+4130:def has_ao_1e_int_overlap(trexio_file) -> bool:
+4149:def has_ao_1e_int_kinetic(trexio_file) -> bool:
+4168:def has_ao_1e_int_potential_n_e(trexio_file) -> bool:
+4187:def has_ao_1e_int_ecp(trexio_file) -> bool:
+4206:def has_ao_1e_int_core_hamiltonian(trexio_file) -> bool:
+4225:def has_ao_1e_int_dipole_x(trexio_file) -> bool:
+4244:def has_ao_1e_int_dipole_y(trexio_file) -> bool:
+4263:def has_ao_1e_int_dipole_z(trexio_file) -> bool:
+4282:def has_ao_1e_int_overlap_im(trexio_file) -> bool:
+4301:def has_ao_1e_int_kinetic_im(trexio_file) -> bool:
+4320:def has_ao_1e_int_potential_n_e_im(trexio_file) -> bool:
+4339:def has_ao_1e_int_ecp_im(trexio_file) -> bool:
+4358:def has_ao_1e_int_core_hamiltonian_im(trexio_file) -> bool:
+4377:def has_ao_1e_int_dipole_x_im(trexio_file) -> bool:
+4396:def has_ao_1e_int_dipole_y_im(trexio_file) -> bool:
+4415:def has_ao_1e_int_dipole_z_im(trexio_file) -> bool:
+4434:def has_mo_coefficient(trexio_file) -> bool:
+4453:def has_mo_coefficient_im(trexio_file) -> bool:
+4472:def has_mo_occupation(trexio_file) -> bool:
+4491:def has_mo_energy(trexio_file) -> bool:
+4510:def has_mo_spin(trexio_file) -> bool:
+4529:def has_mo_k_point(trexio_file) -> bool:
+4548:def has_mo_1e_int_overlap(trexio_file) -> bool:
+4567:def has_mo_1e_int_kinetic(trexio_file) -> bool:
+4586:def has_mo_1e_int_potential_n_e(trexio_file) -> bool:
+4605:def has_mo_1e_int_ecp(trexio_file) -> bool:
+4624:def has_mo_1e_int_core_hamiltonian(trexio_file) -> bool:
+4643:def has_mo_1e_int_dipole_x(trexio_file) -> bool:
+4662:def has_mo_1e_int_dipole_y(trexio_file) -> bool:
+4681:def has_mo_1e_int_dipole_z(trexio_file) -> bool:
+4700:def has_mo_1e_int_overlap_im(trexio_file) -> bool:
+4719:def has_mo_1e_int_kinetic_im(trexio_file) -> bool:
+4738:def has_mo_1e_int_potential_n_e_im(trexio_file) -> bool:
+4757:def has_mo_1e_int_ecp_im(trexio_file) -> bool:
+4776:def has_mo_1e_int_core_hamiltonian_im(trexio_file) -> bool:
+4795:def has_mo_1e_int_dipole_x_im(trexio_file) -> bool:
+4814:def has_mo_1e_int_dipole_y_im(trexio_file) -> bool:
+4833:def has_mo_1e_int_dipole_z_im(trexio_file) -> bool:
+4852:def has_auxao_shell(trexio_file) -> bool:
+4871:def has_auxao_normalization(trexio_file) -> bool:
+4890:def has_auxao_cartesian_shell(trexio_file) -> bool:
+4909:def has_auxao2_shell(trexio_file) -> bool:
+4928:def has_auxao2_normalization(trexio_file) -> bool:
+4947:def has_auxao2_cartesian_shell(trexio_file) -> bool:
+4966:def has_densityfit_coefficient(trexio_file) -> bool:
+4985:def has_densityfit_operator(trexio_file) -> bool:
+5004:def has_rdm_1e(trexio_file) -> bool:
+5023:def has_rdm_1e_up(trexio_file) -> bool:
+5042:def has_rdm_1e_dn(trexio_file) -> bool:
+5061:def has_rdm_1e_transition(trexio_file) -> bool:
+5080:def has_jastrow_en(trexio_file) -> bool:
+5099:def has_jastrow_ee(trexio_file) -> bool:
+5118:def has_jastrow_een(trexio_file) -> bool:
+5137:def has_jastrow_en_nucleus(trexio_file) -> bool:
+5156:def has_jastrow_een_nucleus(trexio_file) -> bool:
+5175:def has_jastrow_en_scaling(trexio_file) -> bool:
+5194:def has_qmc_point(trexio_file) -> bool:
+5213:def has_qmc_psi(trexio_file) -> bool:
+5232:def has_qmc_e_loc(trexio_file) -> bool:
+5251:def has_ao_2e_int_eri(trexio_file) -> bool:
+5270:def has_ao_2e_int_eri_lr(trexio_file) -> bool:
+5289:def has_ao_2e_int_eri_cholesky(trexio_file) -> bool:
+5308:def has_ao_2e_int_eri_lr_cholesky(trexio_file) -> bool:
+5327:def has_mo_2e_int_eri(trexio_file) -> bool:
+5346:def has_mo_2e_int_eri_lr(trexio_file) -> bool:
+5365:def has_mo_2e_int_eri_cholesky(trexio_file) -> bool:
+5384:def has_mo_2e_int_eri_lr_cholesky(trexio_file) -> bool:
+5403:def has_csf_det_coefficient(trexio_file) -> bool:
+5422:def has_amplitude_single(trexio_file) -> bool:
+5441:def has_amplitude_single_exp(trexio_file) -> bool:
+5460:def has_amplitude_double(trexio_file) -> bool:
+5479:def has_amplitude_double_exp(trexio_file) -> bool:
+5498:def has_amplitude_triple(trexio_file) -> bool:
+5517:def has_amplitude_triple_exp(trexio_file) -> bool:
+5536:def has_amplitude_quadruple(trexio_file) -> bool:
+5555:def has_amplitude_quadruple_exp(trexio_file) -> bool:
+5574:def has_rdm_2e(trexio_file) -> bool:
+5593:def has_rdm_2e_upup(trexio_file) -> bool:
+5612:def has_rdm_2e_dndn(trexio_file) -> bool:
+5631:def has_rdm_2e_updn(trexio_file) -> bool:
+5650:def has_rdm_2e_transition(trexio_file) -> bool:
+5669:def has_rdm_2e_cholesky(trexio_file) -> bool:
+5688:def has_rdm_2e_upup_cholesky(trexio_file) -> bool:
+5707:def has_rdm_2e_dndn_cholesky(trexio_file) -> bool:
+5726:def has_rdm_2e_updn_cholesky(trexio_file) -> bool:
+5745:def has_metadata_code(trexio_file) -> bool:
+5764:def has_metadata_author(trexio_file) -> bool:
+5783:def has_nucleus_label(trexio_file) -> bool:
+5802:def has_state_label(trexio_file) -> bool:
+5821:def has_state_file_name(trexio_file) -> bool:
+5840:def has_mo_class(trexio_file) -> bool:
+5859:def has_mo_symmetry(trexio_file) -> bool:
+5878:def has_metadata(trexio_file) -> bool:
+5897:def has_nucleus(trexio_file) -> bool:
+5916:def has_cell(trexio_file) -> bool:
+5935:def has_pbc(trexio_file) -> bool:
+5954:def has_electron(trexio_file) -> bool:
+5973:def has_state(trexio_file) -> bool:
+5992:def has_basis(trexio_file) -> bool:
+6011:def has_auxbasis(trexio_file) -> bool:
+6030:def has_auxbasis2(trexio_file) -> bool:
+6049:def has_ecp(trexio_file) -> bool:
+6068:def has_grid(trexio_file) -> bool:
+6087:def has_ao(trexio_file) -> bool:
+6106:def has_ao_1e_int(trexio_file) -> bool:
+6125:def has_ao_2e_int(trexio_file) -> bool:
+6144:def has_mo(trexio_file) -> bool:
+6163:def has_mo_1e_int(trexio_file) -> bool:
+6182:def has_mo_2e_int(trexio_file) -> bool:
+6201:def has_auxao(trexio_file) -> bool:
+6220:def has_auxao2(trexio_file) -> bool:
+6239:def has_densityfit(trexio_file) -> bool:
+6258:def has_determinant(trexio_file) -> bool:
+6277:def has_csf(trexio_file) -> bool:
+6296:def has_amplitude(trexio_file) -> bool:
+6315:def has_rdm(trexio_file) -> bool:
+6334:def has_jastrow(trexio_file) -> bool:
+6353:def has_qmc(trexio_file) -> bool:
+6372:def read_metadata_code_num(trexio_file) -> int:
+6392:def read_metadata_author_num(trexio_file) -> int:
+6412:def read_metadata_unsafe(trexio_file) -> int:
+6432:def read_nucleus_num(trexio_file) -> int:
+6452:def read_nucleus_repulsion(trexio_file) -> float:
+6472:def read_cell_two_pi(trexio_file) -> int:
+6492:def read_pbc_periodic(trexio_file) -> int:
+6512:def read_pbc_k_point_num(trexio_file) -> int:
+6532:def read_pbc_madelung(trexio_file) -> float:
+6552:def read_electron_num(trexio_file) -> int:
+6572:def read_electron_up_num(trexio_file) -> int:
+6592:def read_electron_dn_num(trexio_file) -> int:
+6612:def read_state_num(trexio_file) -> int:
+6632:def read_state_id(trexio_file) -> int:
+6652:def read_state_energy(trexio_file) -> float:
+6672:def read_basis_prim_num(trexio_file) -> int:
+6692:def read_basis_shell_num(trexio_file) -> int:
+6712:def read_basis_nao_grid_num(trexio_file) -> int:
+6732:def read_basis_interp_coeff_cnt(trexio_file) -> int:
+6752:def read_basis_e_cut(trexio_file) -> float:
+6772:def read_auxbasis_prim_num(trexio_file) -> int:
+6792:def read_auxbasis_shell_num(trexio_file) -> int:
+6812:def read_auxbasis_nao_grid_num(trexio_file) -> int:
+6832:def read_auxbasis_interp_coeff_cnt(trexio_file) -> int:
+6852:def read_auxbasis_e_cut(trexio_file) -> float:
+6872:def read_auxbasis2_prim_num(trexio_file) -> int:
+6892:def read_auxbasis2_shell_num(trexio_file) -> int:
+6912:def read_auxbasis2_nao_grid_num(trexio_file) -> int:
+6932:def read_auxbasis2_interp_coeff_cnt(trexio_file) -> int:
+6952:def read_auxbasis2_e_cut(trexio_file) -> float:
+6972:def read_ecp_num(trexio_file) -> int:
+6992:def read_grid_rad_precision(trexio_file) -> float:
+7012:def read_grid_num(trexio_file) -> int:
+7032:def read_grid_max_ang_num(trexio_file) -> int:
+7052:def read_grid_min_ang_num(trexio_file) -> int:
+7072:def read_grid_ang_num(trexio_file) -> int:
+7092:def read_grid_rad_num(trexio_file) -> int:
+7112:def read_ao_cartesian(trexio_file) -> int:
+7132:def read_ao_num(trexio_file) -> int:
+7152:def read_ao_2e_int_eri_cholesky_num(trexio_file) -> int:
+7172:def read_ao_2e_int_eri_lr_cholesky_num(trexio_file) -> int:
+7192:def read_mo_num(trexio_file) -> int:
+7212:def read_mo_electronic_temperature(trexio_file) -> float:
+7232:def read_mo_2e_int_eri_cholesky_num(trexio_file) -> int:
+7252:def read_mo_2e_int_eri_lr_cholesky_num(trexio_file) -> int:
+7272:def read_auxao_cartesian(trexio_file) -> int:
+7292:def read_auxao_num(trexio_file) -> int:
+7312:def read_auxao2_cartesian(trexio_file) -> int:
+7332:def read_auxao2_num(trexio_file) -> int:
+7352:def read_densityfit_num(trexio_file) -> int:
+7372:def read_determinant_num(trexio_file) -> int:
+7392:def read_csf_num(trexio_file) -> int:
+7412:def read_rdm_2e_cholesky_num(trexio_file) -> int:
+7432:def read_rdm_2e_upup_cholesky_num(trexio_file) -> int:
+7452:def read_rdm_2e_dndn_cholesky_num(trexio_file) -> int:
+7472:def read_rdm_2e_updn_cholesky_num(trexio_file) -> int:
+7492:def read_jastrow_en_num(trexio_file) -> int:
+7512:def read_jastrow_ee_num(trexio_file) -> int:
+7532:def read_jastrow_een_num(trexio_file) -> int:
+7552:def read_jastrow_ee_scaling(trexio_file) -> float:
+7572:def read_qmc_num(trexio_file) -> int:
+7592:def read_metadata_package_version(trexio_file) -> str:
+7612:def read_metadata_description(trexio_file) -> str:
+7632:def read_nucleus_point_group(trexio_file) -> str:
+7652:def read_state_current_label(trexio_file) -> str:
+7672:def read_basis_type(trexio_file) -> str:
+7692:def read_basis_description(trexio_file) -> str:
+7712:def read_basis_oscillation_kind(trexio_file) -> str:
+7732:def read_basis_interpolator_kind(trexio_file) -> str:
+7752:def read_auxbasis_type(trexio_file) -> str:
+7772:def read_auxbasis_description(trexio_file) -> str:
+7792:def read_auxbasis_oscillation_kind(trexio_file) -> str:
+7812:def read_auxbasis_interpolator_kind(trexio_file) -> str:
+7832:def read_auxbasis2_type(trexio_file) -> str:
+7852:def read_auxbasis2_description(trexio_file) -> str:
+7872:def read_auxbasis2_oscillation_kind(trexio_file) -> str:
+7892:def read_auxbasis2_interpolator_kind(trexio_file) -> str:
+7912:def read_grid_description(trexio_file) -> str:
+7932:def read_mo_type(trexio_file) -> str:
+7952:def read_jastrow_type(trexio_file) -> str:
+7972:def read_determinant_coefficient(trexio_file: File, offset_file: int, buffer_size: int) -> tuple:
+8031:def read_determinant_coefficient_size(trexio_file) -> int:
+8051:def read_csf_coefficient(trexio_file: File, offset_file: int, buffer_size: int) -> tuple:
+8110:def read_csf_coefficient_size(trexio_file) -> int:
+8130:def read_nucleus_charge(trexio_file, dim = None, doReshape = None, dtype = None):
+8215:def read_nucleus_coord(trexio_file, dim = None, doReshape = None, dtype = None):
+8300:def read_cell_a(trexio_file, dim = None, doReshape = None, dtype = None):
+8384:def read_cell_b(trexio_file, dim = None, doReshape = None, dtype = None):
+8468:def read_cell_c(trexio_file, dim = None, doReshape = None, dtype = None):
+8552:def read_cell_g_a(trexio_file, dim = None, doReshape = None, dtype = None):
+8636:def read_cell_g_b(trexio_file, dim = None, doReshape = None, dtype = None):
+8720:def read_cell_g_c(trexio_file, dim = None, doReshape = None, dtype = None):
+8804:def read_pbc_k_point(trexio_file, dim = None, doReshape = None, dtype = None):
+8889:def read_pbc_k_point_weight(trexio_file, dim = None, doReshape = None, dtype = None):
+8974:def read_basis_nucleus_index(trexio_file, dim = None, doReshape = None, dtype = None):
+9059:def read_basis_shell_ang_mom(trexio_file, dim = None, doReshape = None, dtype = None):
+9144:def read_basis_shell_factor(trexio_file, dim = None, doReshape = None, dtype = None):
+9229:def read_basis_r_power(trexio_file, dim = None, doReshape = None, dtype = None):
+9314:def read_basis_nao_grid_start(trexio_file, dim = None, doReshape = None, dtype = None):
+9399:def read_basis_nao_grid_size(trexio_file, dim = None, doReshape = None, dtype = None):
+9484:def read_basis_shell_index(trexio_file, dim = None, doReshape = None, dtype = None):
+9569:def read_basis_exponent(trexio_file, dim = None, doReshape = None, dtype = None):
+9654:def read_basis_exponent_im(trexio_file, dim = None, doReshape = None, dtype = None):
+9739:def read_basis_coefficient(trexio_file, dim = None, doReshape = None, dtype = None):
+9824:def read_basis_coefficient_im(trexio_file, dim = None, doReshape = None, dtype = None):
+9909:def read_basis_oscillation_arg(trexio_file, dim = None, doReshape = None, dtype = None):
+9994:def read_basis_prim_factor(trexio_file, dim = None, doReshape = None, dtype = None):
+10079:def read_basis_nao_grid_radius(trexio_file, dim = None, doReshape = None, dtype = None):
+10164:def read_basis_nao_grid_phi(trexio_file, dim = None, doReshape = None, dtype = None):
+10249:def read_basis_nao_grid_grad(trexio_file, dim = None, doReshape = None, dtype = None):
+10334:def read_basis_nao_grid_lap(trexio_file, dim = None, doReshape = None, dtype = None):
+10419:def read_basis_interpolator_phi(trexio_file, dim = None, doReshape = None, dtype = None):
+10505:def read_basis_interpolator_grad(trexio_file, dim = None, doReshape = None, dtype = None):
+10591:def read_basis_interpolator_lap(trexio_file, dim = None, doReshape = None, dtype = None):
+10677:def read_auxbasis_nucleus_index(trexio_file, dim = None, doReshape = None, dtype = None):
+10762:def read_auxbasis_shell_ang_mom(trexio_file, dim = None, doReshape = None, dtype = None):
+10847:def read_auxbasis_shell_factor(trexio_file, dim = None, doReshape = None, dtype = None):
+10932:def read_auxbasis_r_power(trexio_file, dim = None, doReshape = None, dtype = None):
+11017:def read_auxbasis_nao_grid_start(trexio_file, dim = None, doReshape = None, dtype = None):
+11102:def read_auxbasis_nao_grid_size(trexio_file, dim = None, doReshape = None, dtype = None):
+11187:def read_auxbasis_shell_index(trexio_file, dim = None, doReshape = None, dtype = None):
+11272:def read_auxbasis_exponent(trexio_file, dim = None, doReshape = None, dtype = None):
+11357:def read_auxbasis_exponent_im(trexio_file, dim = None, doReshape = None, dtype = None):
+11442:def read_auxbasis_coefficient(trexio_file, dim = None, doReshape = None, dtype = None):
+11527:def read_auxbasis_coefficient_im(trexio_file, dim = None, doReshape = None, dtype = None):
+11612:def read_auxbasis_oscillation_arg(trexio_file, dim = None, doReshape = None, dtype = None):
+11697:def read_auxbasis_prim_factor(trexio_file, dim = None, doReshape = None, dtype = None):
+11782:def read_auxbasis_nao_grid_radius(trexio_file, dim = None, doReshape = None, dtype = None):
+11867:def read_auxbasis_nao_grid_phi(trexio_file, dim = None, doReshape = None, dtype = None):
+11952:def read_auxbasis_nao_grid_grad(trexio_file, dim = None, doReshape = None, dtype = None):
+12037:def read_auxbasis_nao_grid_lap(trexio_file, dim = None, doReshape = None, dtype = None):
+12122:def read_auxbasis_interpolator_phi(trexio_file, dim = None, doReshape = None, dtype = None):
+12208:def read_auxbasis_interpolator_grad(trexio_file, dim = None, doReshape = None, dtype = None):
+12294:def read_auxbasis_interpolator_lap(trexio_file, dim = None, doReshape = None, dtype = None):
+12380:def read_auxbasis2_nucleus_index(trexio_file, dim = None, doReshape = None, dtype = None):
+12465:def read_auxbasis2_shell_ang_mom(trexio_file, dim = None, doReshape = None, dtype = None):
+12550:def read_auxbasis2_shell_factor(trexio_file, dim = None, doReshape = None, dtype = None):
+12635:def read_auxbasis2_r_power(trexio_file, dim = None, doReshape = None, dtype = None):
+12720:def read_auxbasis2_nao_grid_start(trexio_file, dim = None, doReshape = None, dtype = None):
+12805:def read_auxbasis2_nao_grid_size(trexio_file, dim = None, doReshape = None, dtype = None):
+12890:def read_auxbasis2_shell_index(trexio_file, dim = None, doReshape = None, dtype = None):
+12975:def read_auxbasis2_exponent(trexio_file, dim = None, doReshape = None, dtype = None):
+13060:def read_auxbasis2_exponent_im(trexio_file, dim = None, doReshape = None, dtype = None):
+13145:def read_auxbasis2_coefficient(trexio_file, dim = None, doReshape = None, dtype = None):
+13230:def read_auxbasis2_coefficient_im(trexio_file, dim = None, doReshape = None, dtype = None):
+13315:def read_auxbasis2_oscillation_arg(trexio_file, dim = None, doReshape = None, dtype = None):
+13400:def read_auxbasis2_prim_factor(trexio_file, dim = None, doReshape = None, dtype = None):
+13485:def read_auxbasis2_nao_grid_radius(trexio_file, dim = None, doReshape = None, dtype = None):
+13570:def read_auxbasis2_nao_grid_phi(trexio_file, dim = None, doReshape = None, dtype = None):
+13655:def read_auxbasis2_nao_grid_grad(trexio_file, dim = None, doReshape = None, dtype = None):
+13740:def read_auxbasis2_nao_grid_lap(trexio_file, dim = None, doReshape = None, dtype = None):
+13825:def read_auxbasis2_interpolator_phi(trexio_file, dim = None, doReshape = None, dtype = None):
+13911:def read_auxbasis2_interpolator_grad(trexio_file, dim = None, doReshape = None, dtype = None):
+13997:def read_auxbasis2_interpolator_lap(trexio_file, dim = None, doReshape = None, dtype = None):
+14083:def read_ecp_max_ang_mom_plus_1(trexio_file, dim = None, doReshape = None, dtype = None):
+14168:def read_ecp_z_core(trexio_file, dim = None, doReshape = None, dtype = None):
+14253:def read_ecp_ang_mom(trexio_file, dim = None, doReshape = None, dtype = None):
+14338:def read_ecp_nucleus_index(trexio_file, dim = None, doReshape = None, dtype = None):
+14423:def read_ecp_exponent(trexio_file, dim = None, doReshape = None, dtype = None):
+14508:def read_ecp_coefficient(trexio_file, dim = None, doReshape = None, dtype = None):
+14593:def read_ecp_power(trexio_file, dim = None, doReshape = None, dtype = None):
+14678:def read_grid_coord(trexio_file, dim = None, doReshape = None, dtype = None):
+14763:def read_grid_weight(trexio_file, dim = None, doReshape = None, dtype = None):
+14848:def read_grid_ang_coord(trexio_file, dim = None, doReshape = None, dtype = None):
+14933:def read_grid_ang_weight(trexio_file, dim = None, doReshape = None, dtype = None):
+15018:def read_grid_rad_coord(trexio_file, dim = None, doReshape = None, dtype = None):
+15103:def read_grid_rad_weight(trexio_file, dim = None, doReshape = None, dtype = None):
+15188:def read_ao_shell(trexio_file, dim = None, doReshape = None, dtype = None):
+15273:def read_ao_normalization(trexio_file, dim = None, doReshape = None, dtype = None):
+15358:def read_ao_cartesian_shell(trexio_file, dim = None, doReshape = None, dtype = None):
+15443:def read_ao_1e_int_overlap(trexio_file, dim = None, doReshape = None, dtype = None):
+15528:def read_ao_1e_int_kinetic(trexio_file, dim = None, doReshape = None, dtype = None):
+15613:def read_ao_1e_int_potential_n_e(trexio_file, dim = None, doReshape = None, dtype = None):
+15698:def read_ao_1e_int_ecp(trexio_file, dim = None, doReshape = None, dtype = None):
+15783:def read_ao_1e_int_core_hamiltonian(trexio_file, dim = None, doReshape = None, dtype = None):
+15868:def read_ao_1e_int_dipole_x(trexio_file, dim = None, doReshape = None, dtype = None):
+15953:def read_ao_1e_int_dipole_y(trexio_file, dim = None, doReshape = None, dtype = None):
+16038:def read_ao_1e_int_dipole_z(trexio_file, dim = None, doReshape = None, dtype = None):
+16123:def read_ao_1e_int_overlap_im(trexio_file, dim = None, doReshape = None, dtype = None):
+16208:def read_ao_1e_int_kinetic_im(trexio_file, dim = None, doReshape = None, dtype = None):
+16293:def read_ao_1e_int_potential_n_e_im(trexio_file, dim = None, doReshape = None, dtype = None):
+16378:def read_ao_1e_int_ecp_im(trexio_file, dim = None, doReshape = None, dtype = None):
+16463:def read_ao_1e_int_core_hamiltonian_im(trexio_file, dim = None, doReshape = None, dtype = None):
+16548:def read_ao_1e_int_dipole_x_im(trexio_file, dim = None, doReshape = None, dtype = None):
+16633:def read_ao_1e_int_dipole_y_im(trexio_file, dim = None, doReshape = None, dtype = None):
+16718:def read_ao_1e_int_dipole_z_im(trexio_file, dim = None, doReshape = None, dtype = None):
+16803:def read_mo_coefficient(trexio_file, dim = None, doReshape = None, dtype = None):
+16889:def read_mo_coefficient_im(trexio_file, dim = None, doReshape = None, dtype = None):
+16975:def read_mo_occupation(trexio_file, dim = None, doReshape = None, dtype = None):
+17060:def read_mo_energy(trexio_file, dim = None, doReshape = None, dtype = None):
+17145:def read_mo_spin(trexio_file, dim = None, doReshape = None, dtype = None):
+17230:def read_mo_k_point(trexio_file, dim = None, doReshape = None, dtype = None):
+17315:def read_mo_1e_int_overlap(trexio_file, dim = None, doReshape = None, dtype = None):
+17400:def read_mo_1e_int_kinetic(trexio_file, dim = None, doReshape = None, dtype = None):
+17485:def read_mo_1e_int_potential_n_e(trexio_file, dim = None, doReshape = None, dtype = None):
+17570:def read_mo_1e_int_ecp(trexio_file, dim = None, doReshape = None, dtype = None):
+17655:def read_mo_1e_int_core_hamiltonian(trexio_file, dim = None, doReshape = None, dtype = None):
+17740:def read_mo_1e_int_dipole_x(trexio_file, dim = None, doReshape = None, dtype = None):
+17825:def read_mo_1e_int_dipole_y(trexio_file, dim = None, doReshape = None, dtype = None):
+17910:def read_mo_1e_int_dipole_z(trexio_file, dim = None, doReshape = None, dtype = None):
+17995:def read_mo_1e_int_overlap_im(trexio_file, dim = None, doReshape = None, dtype = None):
+18080:def read_mo_1e_int_kinetic_im(trexio_file, dim = None, doReshape = None, dtype = None):
+18165:def read_mo_1e_int_potential_n_e_im(trexio_file, dim = None, doReshape = None, dtype = None):
+18250:def read_mo_1e_int_ecp_im(trexio_file, dim = None, doReshape = None, dtype = None):
+18335:def read_mo_1e_int_core_hamiltonian_im(trexio_file, dim = None, doReshape = None, dtype = None):
+18420:def read_mo_1e_int_dipole_x_im(trexio_file, dim = None, doReshape = None, dtype = None):
+18505:def read_mo_1e_int_dipole_y_im(trexio_file, dim = None, doReshape = None, dtype = None):
+18590:def read_mo_1e_int_dipole_z_im(trexio_file, dim = None, doReshape = None, dtype = None):
+18675:def read_auxao_shell(trexio_file, dim = None, doReshape = None, dtype = None):
+18760:def read_auxao_normalization(trexio_file, dim = None, doReshape = None, dtype = None):
+18845:def read_auxao_cartesian_shell(trexio_file, dim = None, doReshape = None, dtype = None):
+18930:def read_auxao2_shell(trexio_file, dim = None, doReshape = None, dtype = None):
+19015:def read_auxao2_normalization(trexio_file, dim = None, doReshape = None, dtype = None):
+19100:def read_auxao2_cartesian_shell(trexio_file, dim = None, doReshape = None, dtype = None):
+19185:def read_densityfit_coefficient(trexio_file, dim = None, doReshape = None, dtype = None):
+19271:def read_densityfit_operator(trexio_file, dim = None, doReshape = None, dtype = None):
+19356:def read_rdm_1e(trexio_file, dim = None, doReshape = None, dtype = None):
+19441:def read_rdm_1e_up(trexio_file, dim = None, doReshape = None, dtype = None):
+19526:def read_rdm_1e_dn(trexio_file, dim = None, doReshape = None, dtype = None):
+19611:def read_rdm_1e_transition(trexio_file, dim = None, doReshape = None, dtype = None):
+19697:def read_jastrow_en(trexio_file, dim = None, doReshape = None, dtype = None):
+19782:def read_jastrow_ee(trexio_file, dim = None, doReshape = None, dtype = None):
+19867:def read_jastrow_een(trexio_file, dim = None, doReshape = None, dtype = None):
+19952:def read_jastrow_en_nucleus(trexio_file, dim = None, doReshape = None, dtype = None):
+20037:def read_jastrow_een_nucleus(trexio_file, dim = None, doReshape = None, dtype = None):
+20122:def read_jastrow_en_scaling(trexio_file, dim = None, doReshape = None, dtype = None):
+20207:def read_qmc_point(trexio_file, dim = None, doReshape = None, dtype = None):
+20293:def read_qmc_psi(trexio_file, dim = None, doReshape = None, dtype = None):
+20378:def read_qmc_e_loc(trexio_file, dim = None, doReshape = None, dtype = None):
+20463:def read_ao_2e_int_eri(trexio_file: File, offset_file: int, buffer_size: int) -> tuple:
+20531:def read_ao_2e_int_eri_size(trexio_file) -> int:
+20551:def read_ao_2e_int_eri_lr(trexio_file: File, offset_file: int, buffer_size: int) -> tuple:
+20619:def read_ao_2e_int_eri_lr_size(trexio_file) -> int:
+20639:def read_ao_2e_int_eri_cholesky(trexio_file: File, offset_file: int, buffer_size: int) -> tuple:
+20707:def read_ao_2e_int_eri_cholesky_size(trexio_file) -> int:
+20727:def read_ao_2e_int_eri_lr_cholesky(trexio_file: File, offset_file: int, buffer_size: int) -> tuple:
+20795:def read_ao_2e_int_eri_lr_cholesky_size(trexio_file) -> int:
+20815:def read_mo_2e_int_eri(trexio_file: File, offset_file: int, buffer_size: int) -> tuple:
+20883:def read_mo_2e_int_eri_size(trexio_file) -> int:
+20903:def read_mo_2e_int_eri_lr(trexio_file: File, offset_file: int, buffer_size: int) -> tuple:
+20971:def read_mo_2e_int_eri_lr_size(trexio_file) -> int:
+20991:def read_mo_2e_int_eri_cholesky(trexio_file: File, offset_file: int, buffer_size: int) -> tuple:
+21059:def read_mo_2e_int_eri_cholesky_size(trexio_file) -> int:
+21079:def read_mo_2e_int_eri_lr_cholesky(trexio_file: File, offset_file: int, buffer_size: int) -> tuple:
+21147:def read_mo_2e_int_eri_lr_cholesky_size(trexio_file) -> int:
+21167:def read_csf_det_coefficient(trexio_file: File, offset_file: int, buffer_size: int) -> tuple:
+21235:def read_csf_det_coefficient_size(trexio_file) -> int:
+21255:def read_amplitude_single(trexio_file: File, offset_file: int, buffer_size: int) -> tuple:
+21323:def read_amplitude_single_size(trexio_file) -> int:
+21343:def read_amplitude_single_exp(trexio_file: File, offset_file: int, buffer_size: int) -> tuple:
+21411:def read_amplitude_single_exp_size(trexio_file) -> int:
+21431:def read_amplitude_double(trexio_file: File, offset_file: int, buffer_size: int) -> tuple:
+21499:def read_amplitude_double_size(trexio_file) -> int:
+21519:def read_amplitude_double_exp(trexio_file: File, offset_file: int, buffer_size: int) -> tuple:
+21587:def read_amplitude_double_exp_size(trexio_file) -> int:
+21607:def read_amplitude_triple(trexio_file: File, offset_file: int, buffer_size: int) -> tuple:
+21675:def read_amplitude_triple_size(trexio_file) -> int:
+21695:def read_amplitude_triple_exp(trexio_file: File, offset_file: int, buffer_size: int) -> tuple:
+21763:def read_amplitude_triple_exp_size(trexio_file) -> int:
+21783:def read_amplitude_quadruple(trexio_file: File, offset_file: int, buffer_size: int) -> tuple:
+21851:def read_amplitude_quadruple_size(trexio_file) -> int:
+21871:def read_amplitude_quadruple_exp(trexio_file: File, offset_file: int, buffer_size: int) -> tuple:
+21939:def read_amplitude_quadruple_exp_size(trexio_file) -> int:
+21959:def read_rdm_2e(trexio_file: File, offset_file: int, buffer_size: int) -> tuple:
+22027:def read_rdm_2e_size(trexio_file) -> int:
+22047:def read_rdm_2e_upup(trexio_file: File, offset_file: int, buffer_size: int) -> tuple:
+22115:def read_rdm_2e_upup_size(trexio_file) -> int:
+22135:def read_rdm_2e_dndn(trexio_file: File, offset_file: int, buffer_size: int) -> tuple:
+22203:def read_rdm_2e_dndn_size(trexio_file) -> int:
+22223:def read_rdm_2e_updn(trexio_file: File, offset_file: int, buffer_size: int) -> tuple:
+22291:def read_rdm_2e_updn_size(trexio_file) -> int:
+22311:def read_rdm_2e_transition(trexio_file: File, offset_file: int, buffer_size: int) -> tuple:
+22379:def read_rdm_2e_transition_size(trexio_file) -> int:
+22399:def read_rdm_2e_cholesky(trexio_file: File, offset_file: int, buffer_size: int) -> tuple:
+22467:def read_rdm_2e_cholesky_size(trexio_file) -> int:
+22487:def read_rdm_2e_upup_cholesky(trexio_file: File, offset_file: int, buffer_size: int) -> tuple:
+22555:def read_rdm_2e_upup_cholesky_size(trexio_file) -> int:
+22575:def read_rdm_2e_dndn_cholesky(trexio_file: File, offset_file: int, buffer_size: int) -> tuple:
+22643:def read_rdm_2e_dndn_cholesky_size(trexio_file) -> int:
+22663:def read_rdm_2e_updn_cholesky(trexio_file: File, offset_file: int, buffer_size: int) -> tuple:
+22731:def read_rdm_2e_updn_cholesky_size(trexio_file) -> int:
+22751:def read_metadata_code(trexio_file, dim = None) -> list:
+22797:def read_metadata_author(trexio_file, dim = None) -> list:
+22843:def read_nucleus_label(trexio_file, dim = None) -> list:
+22889:def read_state_label(trexio_file, dim = None) -> list:
+22935:def read_state_file_name(trexio_file, dim = None) -> list:
+22981:def read_mo_class(trexio_file, dim = None) -> list:
+23027:def read_mo_symmetry(trexio_file, dim = None) -> list:
+23073:def write_metadata_code_num(trexio_file, num_w: int) -> None:
+23093:def write_metadata_author_num(trexio_file, num_w: int) -> None:
+23113:def write_metadata_unsafe(trexio_file, num_w: int) -> None:
+23133:def write_nucleus_num(trexio_file, num_w: int) -> None:
+23153:def write_nucleus_repulsion(trexio_file, num_w: float) -> None:
+23173:def write_cell_two_pi(trexio_file, num_w: int) -> None:
+23193:def write_pbc_periodic(trexio_file, num_w: int) -> None:
+23213:def write_pbc_k_point_num(trexio_file, num_w: int) -> None:
+23233:def write_pbc_madelung(trexio_file, num_w: float) -> None:
+23253:def write_electron_num(trexio_file, num_w: int) -> None:
+23273:def write_electron_up_num(trexio_file, num_w: int) -> None:
+23293:def write_electron_dn_num(trexio_file, num_w: int) -> None:
+23313:def write_state_num(trexio_file, num_w: int) -> None:
+23333:def write_state_id(trexio_file, num_w: int) -> None:
+23353:def write_state_energy(trexio_file, num_w: float) -> None:
+23373:def write_basis_prim_num(trexio_file, num_w: int) -> None:
+23393:def write_basis_shell_num(trexio_file, num_w: int) -> None:
+23413:def write_basis_nao_grid_num(trexio_file, num_w: int) -> None:
+23433:def write_basis_interp_coeff_cnt(trexio_file, num_w: int) -> None:
+23453:def write_basis_e_cut(trexio_file, num_w: float) -> None:
+23473:def write_auxbasis_prim_num(trexio_file, num_w: int) -> None:
+23493:def write_auxbasis_shell_num(trexio_file, num_w: int) -> None:
+23513:def write_auxbasis_nao_grid_num(trexio_file, num_w: int) -> None:
+23533:def write_auxbasis_interp_coeff_cnt(trexio_file, num_w: int) -> None:
+23553:def write_auxbasis_e_cut(trexio_file, num_w: float) -> None:
+23573:def write_auxbasis2_prim_num(trexio_file, num_w: int) -> None:
+23593:def write_auxbasis2_shell_num(trexio_file, num_w: int) -> None:
+23613:def write_auxbasis2_nao_grid_num(trexio_file, num_w: int) -> None:
+23633:def write_auxbasis2_interp_coeff_cnt(trexio_file, num_w: int) -> None:
+23653:def write_auxbasis2_e_cut(trexio_file, num_w: float) -> None:
+23673:def write_ecp_num(trexio_file, num_w: int) -> None:
+23693:def write_grid_rad_precision(trexio_file, num_w: float) -> None:
+23713:def write_grid_num(trexio_file, num_w: int) -> None:
+23733:def write_grid_max_ang_num(trexio_file, num_w: int) -> None:
+23753:def write_grid_min_ang_num(trexio_file, num_w: int) -> None:
+23773:def write_grid_ang_num(trexio_file, num_w: int) -> None:
+23793:def write_grid_rad_num(trexio_file, num_w: int) -> None:
+23813:def write_ao_cartesian(trexio_file, num_w: int) -> None:
+23833:def write_ao_num(trexio_file, num_w: int) -> None:
+23853:def write_ao_2e_int_eri_cholesky_num(trexio_file, num_w: int) -> None:
+23873:def write_ao_2e_int_eri_lr_cholesky_num(trexio_file, num_w: int) -> None:
+23893:def write_mo_num(trexio_file, num_w: int) -> None:
+23913:def write_mo_electronic_temperature(trexio_file, num_w: float) -> None:
+23933:def write_mo_2e_int_eri_cholesky_num(trexio_file, num_w: int) -> None:
+23953:def write_mo_2e_int_eri_lr_cholesky_num(trexio_file, num_w: int) -> None:
+23973:def write_auxao_cartesian(trexio_file, num_w: int) -> None:
+23993:def write_auxao_num(trexio_file, num_w: int) -> None:
+24013:def write_auxao2_cartesian(trexio_file, num_w: int) -> None:
+24033:def write_auxao2_num(trexio_file, num_w: int) -> None:
+24053:def write_densityfit_num(trexio_file, num_w: int) -> None:
+24073:def write_csf_num(trexio_file, num_w: int) -> None:
+24093:def write_rdm_2e_cholesky_num(trexio_file, num_w: int) -> None:
+24113:def write_rdm_2e_upup_cholesky_num(trexio_file, num_w: int) -> None:
+24133:def write_rdm_2e_dndn_cholesky_num(trexio_file, num_w: int) -> None:
+24153:def write_rdm_2e_updn_cholesky_num(trexio_file, num_w: int) -> None:
+24173:def write_jastrow_en_num(trexio_file, num_w: int) -> None:
+24193:def write_jastrow_ee_num(trexio_file, num_w: int) -> None:
+24213:def write_jastrow_een_num(trexio_file, num_w: int) -> None:
+24233:def write_jastrow_ee_scaling(trexio_file, num_w: float) -> None:
+24253:def write_qmc_num(trexio_file, num_w: int) -> None:
+24273:def write_metadata_package_version(trexio_file, str_w: str) -> None:
+24295:def write_metadata_description(trexio_file, str_w: str) -> None:
+24317:def write_nucleus_point_group(trexio_file, str_w: str) -> None:
+24339:def write_state_current_label(trexio_file, str_w: str) -> None:
+24361:def write_basis_type(trexio_file, str_w: str) -> None:
+24383:def write_basis_description(trexio_file, str_w: str) -> None:
+24405:def write_basis_oscillation_kind(trexio_file, str_w: str) -> None:
+24427:def write_basis_interpolator_kind(trexio_file, str_w: str) -> None:
+24449:def write_auxbasis_type(trexio_file, str_w: str) -> None:
+24471:def write_auxbasis_description(trexio_file, str_w: str) -> None:
+24493:def write_auxbasis_oscillation_kind(trexio_file, str_w: str) -> None:
+24515:def write_auxbasis_interpolator_kind(trexio_file, str_w: str) -> None:
+24537:def write_auxbasis2_type(trexio_file, str_w: str) -> None:
+24559:def write_auxbasis2_description(trexio_file, str_w: str) -> None:
+24581:def write_auxbasis2_oscillation_kind(trexio_file, str_w: str) -> None:
+24603:def write_auxbasis2_interpolator_kind(trexio_file, str_w: str) -> None:
+24625:def write_grid_description(trexio_file, str_w: str) -> None:
+24647:def write_mo_type(trexio_file, str_w: str) -> None:
+24669:def write_jastrow_type(trexio_file, str_w: str) -> None:
+24691:def write_determinant_coefficient(trexio_file: File, offset_file: int, buffer_size: int, dset) -> None:
+24730:def write_csf_coefficient(trexio_file: File, offset_file: int, buffer_size: int, dset) -> None:
+24769:def write_nucleus_charge(trexio_file, dset_w) -> None:
+24823:def write_nucleus_coord(trexio_file, dset_w) -> None:
+24877:def write_cell_a(trexio_file, dset_w) -> None:
+24931:def write_cell_b(trexio_file, dset_w) -> None:
+24985:def write_cell_c(trexio_file, dset_w) -> None:
+25039:def write_cell_g_a(trexio_file, dset_w) -> None:
+25093:def write_cell_g_b(trexio_file, dset_w) -> None:
+25147:def write_cell_g_c(trexio_file, dset_w) -> None:
+25201:def write_pbc_k_point(trexio_file, dset_w) -> None:
+25255:def write_pbc_k_point_weight(trexio_file, dset_w) -> None:
+25309:def write_basis_nucleus_index(trexio_file, dset_w) -> None:
+25363:def write_basis_shell_ang_mom(trexio_file, dset_w) -> None:
+25417:def write_basis_shell_factor(trexio_file, dset_w) -> None:
+25471:def write_basis_r_power(trexio_file, dset_w) -> None:
+25526:def write_basis_nao_grid_start(trexio_file, dset_w) -> None:
+25580:def write_basis_nao_grid_size(trexio_file, dset_w) -> None:
+25634:def write_basis_shell_index(trexio_file, dset_w) -> None:
+25688:def write_basis_exponent(trexio_file, dset_w) -> None:
+25742:def write_basis_exponent_im(trexio_file, dset_w) -> None:
+25796:def write_basis_coefficient(trexio_file, dset_w) -> None:
+25850:def write_basis_coefficient_im(trexio_file, dset_w) -> None:
+25904:def write_basis_oscillation_arg(trexio_file, dset_w) -> None:
+25958:def write_basis_prim_factor(trexio_file, dset_w) -> None:
+26012:def write_basis_nao_grid_radius(trexio_file, dset_w) -> None:
+26066:def write_basis_nao_grid_phi(trexio_file, dset_w) -> None:
+26120:def write_basis_nao_grid_grad(trexio_file, dset_w) -> None:
+26174:def write_basis_nao_grid_lap(trexio_file, dset_w) -> None:
+26228:def write_basis_interpolator_phi(trexio_file, dset_w) -> None:
+26282:def write_basis_interpolator_grad(trexio_file, dset_w) -> None:
+26336:def write_basis_interpolator_lap(trexio_file, dset_w) -> None:
+26390:def write_auxbasis_nucleus_index(trexio_file, dset_w) -> None:
+26444:def write_auxbasis_shell_ang_mom(trexio_file, dset_w) -> None:
+26498:def write_auxbasis_shell_factor(trexio_file, dset_w) -> None:
+26552:def write_auxbasis_r_power(trexio_file, dset_w) -> None:
+26606:def write_auxbasis_nao_grid_start(trexio_file, dset_w) -> None:
+26660:def write_auxbasis_nao_grid_size(trexio_file, dset_w) -> None:
+26714:def write_auxbasis_shell_index(trexio_file, dset_w) -> None:
+26768:def write_auxbasis_exponent(trexio_file, dset_w) -> None:
+26822:def write_auxbasis_exponent_im(trexio_file, dset_w) -> None:
+26876:def write_auxbasis_coefficient(trexio_file, dset_w) -> None:
+26930:def write_auxbasis_coefficient_im(trexio_file, dset_w) -> None:
+26984:def write_auxbasis_oscillation_arg(trexio_file, dset_w) -> None:
+27038:def write_auxbasis_prim_factor(trexio_file, dset_w) -> None:
+27092:def write_auxbasis_nao_grid_radius(trexio_file, dset_w) -> None:
+27146:def write_auxbasis_nao_grid_phi(trexio_file, dset_w) -> None:
+27200:def write_auxbasis_nao_grid_grad(trexio_file, dset_w) -> None:
+27254:def write_auxbasis_nao_grid_lap(trexio_file, dset_w) -> None:
+27308:def write_auxbasis_interpolator_phi(trexio_file, dset_w) -> None:
+27362:def write_auxbasis_interpolator_grad(trexio_file, dset_w) -> None:
+27416:def write_auxbasis_interpolator_lap(trexio_file, dset_w) -> None:
+27470:def write_auxbasis2_nucleus_index(trexio_file, dset_w) -> None:
+27524:def write_auxbasis2_shell_ang_mom(trexio_file, dset_w) -> None:
+27578:def write_auxbasis2_shell_factor(trexio_file, dset_w) -> None:
+27632:def write_auxbasis2_r_power(trexio_file, dset_w) -> None:
+27686:def write_auxbasis2_nao_grid_start(trexio_file, dset_w) -> None:
+27740:def write_auxbasis2_nao_grid_size(trexio_file, dset_w) -> None:
+27794:def write_auxbasis2_shell_index(trexio_file, dset_w) -> None:
+27848:def write_auxbasis2_exponent(trexio_file, dset_w) -> None:
+27902:def write_auxbasis2_exponent_im(trexio_file, dset_w) -> None:
+27956:def write_auxbasis2_coefficient(trexio_file, dset_w) -> None:
+28010:def write_auxbasis2_coefficient_im(trexio_file, dset_w) -> None:
+28064:def write_auxbasis2_oscillation_arg(trexio_file, dset_w) -> None:
+28118:def write_auxbasis2_prim_factor(trexio_file, dset_w) -> None:
+28172:def write_auxbasis2_nao_grid_radius(trexio_file, dset_w) -> None:
+28226:def write_auxbasis2_nao_grid_phi(trexio_file, dset_w) -> None:
+28280:def write_auxbasis2_nao_grid_grad(trexio_file, dset_w) -> None:
+28334:def write_auxbasis2_nao_grid_lap(trexio_file, dset_w) -> None:
+28388:def write_auxbasis2_interpolator_phi(trexio_file, dset_w) -> None:
+28442:def write_auxbasis2_interpolator_grad(trexio_file, dset_w) -> None:
+28496:def write_auxbasis2_interpolator_lap(trexio_file, dset_w) -> None:
+28550:def write_ecp_max_ang_mom_plus_1(trexio_file, dset_w) -> None:
+28604:def write_ecp_z_core(trexio_file, dset_w) -> None:
+28658:def write_ecp_ang_mom(trexio_file, dset_w) -> None:
+28712:def write_ecp_nucleus_index(trexio_file, dset_w) -> None:
+28766:def write_ecp_exponent(trexio_file, dset_w) -> None:
+28820:def write_ecp_coefficient(trexio_file, dset_w) -> None:
+28874:def write_ecp_power(trexio_file, dset_w) -> None:
+28928:def write_grid_coord(trexio_file, dset_w) -> None:
+28982:def write_grid_weight(trexio_file, dset_w) -> None:
+29036:def write_grid_ang_coord(trexio_file, dset_w) -> None:
+29090:def write_grid_ang_weight(trexio_file, dset_w) -> None:
+29144:def write_grid_rad_coord(trexio_file, dset_w) -> None:
+29198:def write_grid_rad_weight(trexio_file, dset_w) -> None:
+29252:def write_ao_shell(trexio_file, dset_w) -> None:
+29306:def write_ao_normalization(trexio_file, dset_w) -> None:
+29360:def write_ao_cartesian_shell(trexio_file, dset_w) -> None:
+29414:def write_ao_1e_int_overlap(trexio_file, dset_w) -> None:
+29468:def write_ao_1e_int_kinetic(trexio_file, dset_w) -> None:
+29522:def write_ao_1e_int_potential_n_e(trexio_file, dset_w) -> None:
+29576:def write_ao_1e_int_ecp(trexio_file, dset_w) -> None:
+29630:def write_ao_1e_int_core_hamiltonian(trexio_file, dset_w) -> None:
+29684:def write_ao_1e_int_dipole_x(trexio_file, dset_w) -> None:
+29738:def write_ao_1e_int_dipole_y(trexio_file, dset_w) -> None:
+29792:def write_ao_1e_int_dipole_z(trexio_file, dset_w) -> None:
+29846:def write_ao_1e_int_overlap_im(trexio_file, dset_w) -> None:
+29900:def write_ao_1e_int_kinetic_im(trexio_file, dset_w) -> None:
+29954:def write_ao_1e_int_potential_n_e_im(trexio_file, dset_w) -> None:
+30008:def write_ao_1e_int_ecp_im(trexio_file, dset_w) -> None:
+30062:def write_ao_1e_int_core_hamiltonian_im(trexio_file, dset_w) -> None:
+30116:def write_ao_1e_int_dipole_x_im(trexio_file, dset_w) -> None:
+30170:def write_ao_1e_int_dipole_y_im(trexio_file, dset_w) -> None:
+30224:def write_ao_1e_int_dipole_z_im(trexio_file, dset_w) -> None:
+30278:def write_mo_coefficient(trexio_file, dset_w) -> None:
+30332:def write_mo_coefficient_im(trexio_file, dset_w) -> None:
+30386:def write_mo_occupation(trexio_file, dset_w) -> None:
+30440:def write_mo_energy(trexio_file, dset_w) -> None:
+30494:def write_mo_spin(trexio_file, dset_w) -> None:
+30548:def write_mo_k_point(trexio_file, dset_w) -> None:
+30602:def write_mo_1e_int_overlap(trexio_file, dset_w) -> None:
+30656:def write_mo_1e_int_kinetic(trexio_file, dset_w) -> None:
+30710:def write_mo_1e_int_potential_n_e(trexio_file, dset_w) -> None:
+30764:def write_mo_1e_int_ecp(trexio_file, dset_w) -> None:
+30818:def write_mo_1e_int_core_hamiltonian(trexio_file, dset_w) -> None:
+30872:def write_mo_1e_int_dipole_x(trexio_file, dset_w) -> None:
+30926:def write_mo_1e_int_dipole_y(trexio_file, dset_w) -> None:
+30980:def write_mo_1e_int_dipole_z(trexio_file, dset_w) -> None:
+31034:def write_mo_1e_int_overlap_im(trexio_file, dset_w) -> None:
+31088:def write_mo_1e_int_kinetic_im(trexio_file, dset_w) -> None:
+31142:def write_mo_1e_int_potential_n_e_im(trexio_file, dset_w) -> None:
+31196:def write_mo_1e_int_ecp_im(trexio_file, dset_w) -> None:
+31250:def write_mo_1e_int_core_hamiltonian_im(trexio_file, dset_w) -> None:
+31304:def write_mo_1e_int_dipole_x_im(trexio_file, dset_w) -> None:
+31358:def write_mo_1e_int_dipole_y_im(trexio_file, dset_w) -> None:
+31412:def write_mo_1e_int_dipole_z_im(trexio_file, dset_w) -> None:
+31466:def write_auxao_shell(trexio_file, dset_w) -> None:
+31520:def write_auxao_normalization(trexio_file, dset_w) -> None:
+31574:def write_auxao_cartesian_shell(trexio_file, dset_w) -> None:
+31628:def write_auxao2_shell(trexio_file, dset_w) -> None:
+31682:def write_auxao2_normalization(trexio_file, dset_w) -> None:
+31736:def write_auxao2_cartesian_shell(trexio_file, dset_w) -> None:
+31790:def write_densityfit_coefficient(trexio_file, dset_w) -> None:
+31844:def write_densityfit_operator(trexio_file, dset_w) -> None:
+31898:def write_rdm_1e(trexio_file, dset_w) -> None:
+31952:def write_rdm_1e_up(trexio_file, dset_w) -> None:
+32006:def write_rdm_1e_dn(trexio_file, dset_w) -> None:
+32060:def write_rdm_1e_transition(trexio_file, dset_w) -> None:
+32114:def write_jastrow_en(trexio_file, dset_w) -> None:
+32168:def write_jastrow_ee(trexio_file, dset_w) -> None:
+32222:def write_jastrow_een(trexio_file, dset_w) -> None:
+32276:def write_jastrow_en_nucleus(trexio_file, dset_w) -> None:
+32330:def write_jastrow_een_nucleus(trexio_file, dset_w) -> None:
+32384:def write_jastrow_en_scaling(trexio_file, dset_w) -> None:
+32438:def write_qmc_point(trexio_file, dset_w) -> None:
+32492:def write_qmc_psi(trexio_file, dset_w) -> None:
+32546:def write_qmc_e_loc(trexio_file, dset_w) -> None:
+32600:def write_ao_2e_int_eri(trexio_file: File, offset_file: int, buffer_size: int, indices: list, values: list) -> None:
+32681:def write_ao_2e_int_eri_lr(trexio_file: File, offset_file: int, buffer_size: int, indices: list, values: list) -> None:
+32762:def write_ao_2e_int_eri_cholesky(trexio_file: File, offset_file: int, buffer_size: int, indices: list, values: list) -> None:
+32843:def write_ao_2e_int_eri_lr_cholesky(trexio_file: File, offset_file: int, buffer_size: int, indices: list, values: list) -> None:
+32924:def write_mo_2e_int_eri(trexio_file: File, offset_file: int, buffer_size: int, indices: list, values: list) -> None:
+33005:def write_mo_2e_int_eri_lr(trexio_file: File, offset_file: int, buffer_size: int, indices: list, values: list) -> None:
+33086:def write_mo_2e_int_eri_cholesky(trexio_file: File, offset_file: int, buffer_size: int, indices: list, values: list) -> None:
+33167:def write_mo_2e_int_eri_lr_cholesky(trexio_file: File, offset_file: int, buffer_size: int, indices: list, values: list) -> None:
+33248:def write_csf_det_coefficient(trexio_file: File, offset_file: int, buffer_size: int, indices: list, values: list) -> None:
+33329:def write_amplitude_single(trexio_file: File, offset_file: int, buffer_size: int, indices: list, values: list) -> None:
+33410:def write_amplitude_single_exp(trexio_file: File, offset_file: int, buffer_size: int, indices: list, values: list) -> None:
+33491:def write_amplitude_double(trexio_file: File, offset_file: int, buffer_size: int, indices: list, values: list) -> None:
+33572:def write_amplitude_double_exp(trexio_file: File, offset_file: int, buffer_size: int, indices: list, values: list) -> None:
+33653:def write_amplitude_triple(trexio_file: File, offset_file: int, buffer_size: int, indices: list, values: list) -> None:
+33734:def write_amplitude_triple_exp(trexio_file: File, offset_file: int, buffer_size: int, indices: list, values: list) -> None:
+33815:def write_amplitude_quadruple(trexio_file: File, offset_file: int, buffer_size: int, indices: list, values: list) -> None:
+33896:def write_amplitude_quadruple_exp(trexio_file: File, offset_file: int, buffer_size: int, indices: list, values: list) -> None:
+33977:def write_rdm_2e(trexio_file: File, offset_file: int, buffer_size: int, indices: list, values: list) -> None:
+34058:def write_rdm_2e_upup(trexio_file: File, offset_file: int, buffer_size: int, indices: list, values: list) -> None:
+34139:def write_rdm_2e_dndn(trexio_file: File, offset_file: int, buffer_size: int, indices: list, values: list) -> None:
+34220:def write_rdm_2e_updn(trexio_file: File, offset_file: int, buffer_size: int, indices: list, values: list) -> None:
+34301:def write_rdm_2e_transition(trexio_file: File, offset_file: int, buffer_size: int, indices: list, values: list) -> None:
+34382:def write_rdm_2e_cholesky(trexio_file: File, offset_file: int, buffer_size: int, indices: list, values: list) -> None:
+34463:def write_rdm_2e_upup_cholesky(trexio_file: File, offset_file: int, buffer_size: int, indices: list, values: list) -> None:
+34544:def write_rdm_2e_dndn_cholesky(trexio_file: File, offset_file: int, buffer_size: int, indices: list, values: list) -> None:
+34625:def write_rdm_2e_updn_cholesky(trexio_file: File, offset_file: int, buffer_size: int, indices: list, values: list) -> None:
+34706:def write_metadata_code(trexio_file, dset_w: list) -> None:
+34730:def write_metadata_author(trexio_file, dset_w: list) -> None:
+34754:def write_nucleus_label(trexio_file, dset_w: list) -> None:
+34778:def write_state_label(trexio_file, dset_w: list) -> None:
+34802:def write_state_file_name(trexio_file, dset_w: list) -> None:
+34826:def write_mo_class(trexio_file, dset_w: list) -> None:
+34850:def write_mo_symmetry(trexio_file, dset_w: list) -> None:
+34874:def has_determinant_list(trexio_file) -> bool:
+34892:def read_determinant_list(trexio_file: File, offset_file: int, buffer_size: int) -> tuple:
+34977:def write_determinant_list(trexio_file: File, offset_file: int, buffer_size: int, determinants: list) -> None:
