@@ -1,6 +1,6 @@
 # trexio (Python)
 
-Python API of the [TREXIO](https://trex-coe.org) library — a **nanobind**
+Python API of the [TREXIO](https://trex-coe.github.io/trexio) library — a **nanobind**
 low-level extension that **replaces the SWIG-generated `pytrexio` binding**.
 Drop-in: `import trexio` behaves exactly as before.
 
