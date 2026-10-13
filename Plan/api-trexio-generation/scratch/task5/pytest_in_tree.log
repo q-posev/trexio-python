@@ -1,0 +1,10 @@
+.....................................................                    [100%]
+53 passed in 0.29s
+TREXIO_PACKAGE_VERSION : 2.6.1
+TREXIO_GIT_HASH        : cb705f67b50ee945fb5d3bbec9be619441d24939
+HAVE_HDF5              : true
+HDF5 library version: 1.10.10
+TREXIO_PACKAGE_VERSION : 2.6.1
+TREXIO_GIT_HASH        : cb705f67b50ee945fb5d3bbec9be619441d24939
+HAVE_HDF5              : true
+HDF5 library version: 1.10.10

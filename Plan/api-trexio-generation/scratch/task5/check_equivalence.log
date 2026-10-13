@@ -1,0 +1,26 @@
+==========================================================================
+trexio.py split equivalence (frozen baselines vs current split)
+  core     = api/trexio.py
+  gen      = api/trexio_gen.py
+  required = /tmp/opencode/t5/Plan/api-trexio-generation/verify/baseline_symbols.txt
+
+[PASS] surface: 862/862 wrappers in api/trexio_gen.py
+
+[PASS] surface: none duplicated/defined in core
+
+[PASS] core: 13/13 functions in api/trexio.py
+
+[PASS] ABI: 878/878 required symbols referenced
+
+[name->symbol] probes in generated file:
+  ok  read_nucleus_charge    expects pytr.trexio_read_safe_nucleus_charge_64
+  ok  write_nucleus_charge   expects pytr.trexio_write_safe_nucleus_charge_64
+  ok  read_nucleus_num       expects pytr.trexio_read_nucleus_num
+  ok  write_nucleus_num      expects pytr.trexio_write_nucleus_num
+  ok  read_metadata_code     expects pytr.trexio_read_metadata_code_low
+  ok  write_metadata_code    expects pytr.trexio_write_metadata_code
+  ok  has_nucleus_num        expects pytr.trexio_has_nucleus_num
+  ok  delete_basis           expects pytr.trexio_delete_basis
+
+==========================================================================
+RESULT: PASS -- split preserves surface, core, and ABI.

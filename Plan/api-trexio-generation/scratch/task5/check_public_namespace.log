@@ -1,0 +1,6 @@
+[ok ] namespace: 862/862 surface names present
+[ok ] core names present (18/18)
+
+============================================================
+RESULT: FAIL
+  - round-trip raised: Error('Attribute does not exist in the file')

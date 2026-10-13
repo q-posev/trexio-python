@@ -1,0 +1,3 @@
+__all__: no __all__
+surface-style names in dir(trexio): 862
+core spot -> File, Error, string_of_error, get_int64_num: True True True True

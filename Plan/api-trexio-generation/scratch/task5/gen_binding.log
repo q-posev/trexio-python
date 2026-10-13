@@ -1,0 +1,14 @@
+wrote /tmp/opencode/task5/t5_gen_binding.cpp: 840 bindings, 0 unhandled, 0 cross-check warnings
+  HAS          287
+  OFF5_R         3
+  OFF5_W         3
+  SAFARR_R     147
+  SAFARR_W     147
+  SCALAR_R      61
+  SCALAR_W      60
+  SIZE          28
+  SPARSE_R      26
+  SPARSE_W      26
+  STRARR_W       7
+  STR_R         26
+  STR_W         19

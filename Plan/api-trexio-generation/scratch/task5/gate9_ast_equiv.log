@@ -1,0 +1,7 @@
+source file: /tmp/opencode/t5run/lib/python3.10/site-packages/trexio/trexio_gen.py
+AST byte-equivalence (r_power source, r_power->nao_grid_start, == nao_grid_start source): True
+  line 25071: rc = pytr.trexio_write_safe_basis_r_power_64(trexio_file.pytrexio_s, dset_64)
+  line 25073: rc = pytr.trexio_write_safe_basis_r_power_64(trexio_file.pytrexio_s, dset_flat)
+  line 25075: rc = pytr.trexio_write_safe_basis_r_power_64(trexio_file.pytrexio_s, dset_w)
+write_basis_r_power def spans lines 25026..25078
+all occurrences inside def write_basis_r_power: True

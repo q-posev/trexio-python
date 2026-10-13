@@ -1,0 +1,18 @@
+Processing ./.
+  Installing build dependencies: started
+  Installing build dependencies: finished with status 'done'
+  Getting requirements to build wheel: started
+  Getting requirements to build wheel: finished with status 'done'
+  Preparing metadata (pyproject.toml): started
+  Preparing metadata (pyproject.toml): finished with status 'done'
+Collecting numpy>=1.22 (from trexio==0.1.0)
+  Using cached numpy-2.2.6-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (62 kB)
+Using cached numpy-2.2.6-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (16.8 MB)
+Saved ./dist/numpy-2.2.6-cp310-cp310-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
+Building wheels for collected packages: trexio
+  Building wheel for trexio (pyproject.toml): started
+  Building wheel for trexio (pyproject.toml): still running...
+  Building wheel for trexio (pyproject.toml): finished with status 'done'
+  Created wheel for trexio: filename=trexio-0.1.0-cp310-cp310-linux_x86_64.whl size=235842 sha256=976b8c0e66f322ba851bd2cd547e415247c288905e7e7ae95bf1e5d9050af23c
+  Stored in directory: /tmp/pip-ephem-wheel-cache-oqg5ngq_/wheels/4c/8e/9f/fb9772be9d9e24ec015c83b29c8caf2f750e320ef58bf0d1e4
+Successfully built trexio
