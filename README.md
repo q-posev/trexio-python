@@ -47,16 +47,14 @@ At runtime the extension needs to load `libtrexio.so` — export
 import numpy as np
 import trexio
 
-trexio_file = trexio.File("benzene.h5", "w", trexio.TREXIO_HDF5)
-trexio.write_nucleus_num(trexio_file, 6)
-trexio.write_nucleus_repulsion(trexio_file, 1)
-trexio.write_nucleus_coord(trexio_file, np.zeros((6, 3)))
-trexio.close(trexio_file)
+with trexio.File("benzene.h5", "w", trexio.TREXIO_HDF5) as trexio_file:
+  trexio.write_nucleus_num(trexio_file, 6)
+  trexio.write_nucleus_repulsion(trexio_file, 1)
+  trexio.write_nucleus_coord(trexio_file, np.zeros((6, 3)))
 
-trexio_file = trexio.File("benzene.h5", "r", trexio.TREXIO_HDF5)
-r = trexio.read_nucleus_num(trexio_file)        # 6
-coords = trexio.read_nucleus_coord(trexio_file)  # numpy array (6, 3)
-trexio.close(trexio_file)
+with trexio.File("benzene.h5", "r", trexio.TREXIO_HDF5) as trexio_file:
+  r = trexio.read_nucleus_num(trexio_file)        # 6
+  coords = trexio.read_nucleus_coord(trexio_file)  # numpy array (6, 3)
 ```
 
 Back ends: `trexio.TREXIO_HDF5`, `trexio.TREXIO_TEXT`, `trexio.TREXIO_AUTO`
