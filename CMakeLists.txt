@@ -117,6 +117,7 @@ add_custom_command(TARGET pytrexio POST_BUILD
 install(TARGETS pytrexio DESTINATION "trexio")
 install(FILES "${CMAKE_SOURCE_DIR}/api/trexio/__init__.py"
               "${CMAKE_SOURCE_DIR}/api/trexio/_version.py"
+              "${CMAKE_SOURCE_DIR}/api/trexio/trexio_gen.py"
               DESTINATION "trexio")
 
 # ---------------- generated bindings (per-variable surface) -------------------
@@ -134,4 +135,25 @@ if(EXISTS "${CMAKE_SOURCE_DIR}/tools/gen_binding.py")
     COMMENT "Generating pytrexio per-variable bindings")
   add_custom_target(gen_bindings DEPENDS "${CMAKE_SOURCE_DIR}/src/generated_bindings.cpp")
   add_dependencies(pytrexio gen_bindings)
+endif()
+
+# ---------------- generated PYTHON surface (has_/read_/write_/delete_) ----------
+# Regenerated from required_api.names + the installed trexio.h + trex.json.
+# (C++ equivalent is the gen_bindings target above; both share tools/trexio_api_model.py.)
+if(EXISTS "${CMAKE_SOURCE_DIR}/tools/gen_trexio_py.py")
+  add_custom_command(OUTPUT "${CMAKE_SOURCE_DIR}/api/trexio_gen.py"
+    COMMAND Python::Interpreter "${CMAKE_SOURCE_DIR}/tools/gen_trexio_py.py"
+            --json          "${CMAKE_SOURCE_DIR}/third_party/trex.json"
+            --out           "${CMAKE_SOURCE_DIR}/api/trexio_gen.py"
+            --names         "${CMAKE_SOURCE_DIR}/tools/required_api.names"
+            --golden        "${CMAKE_SOURCE_DIR}/api/trexio_gen.py"
+            --trexio-header "${TREXIO_INC}/trexio.h"
+    DEPENDS "${CMAKE_SOURCE_DIR}/tools/gen_trexio_py.py"
+            "${CMAKE_SOURCE_DIR}/tools/trexio_api_model.py"
+            "${CMAKE_SOURCE_DIR}/third_party/trex.json"
+            "${CMAKE_SOURCE_DIR}/tools/required_api.names"
+            "${TREXIO_INC}/trexio.h"
+    COMMENT "Generating api/trexio_gen.py (trexio surface)")
+  add_custom_target(gen_trexio_py DEPENDS "${CMAKE_SOURCE_DIR}/api/trexio_gen.py")
+  add_dependencies(pytrexio gen_trexio_py)
 endif()
