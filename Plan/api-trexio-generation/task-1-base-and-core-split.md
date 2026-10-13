@@ -99,3 +99,32 @@ structure. No logic was added or removed. `api/trexio.py` line count drops from 
   task.**
 - If task-3 (generator) is already partway when you run, coordinate via the branch/worktree — you're
   the owner of the file layout, task-3 only rewrites the *bodies* of `api/trexio_gen.py`.
+
+## Status — DONE (2026-10-13)
+
+Split performed and the static gate PASSES. Files now: `api/trexio.py` = 414 lines (core: `string_of_error`,
+`class File`, the 12 helpers, re-exports, `from .trexio_gen import *` last); `api/trexio/_base.py` = 97 lines
+(np/pytr import, `PYTREXIO_MAX_STR_LENGTH`, 48 exit codes + 5 back-ends, `class Error`); `api/trexio_gen.py`
+= 34,589 lines (`__all__` + the 862 surface verbatim + `get_int64_num`); symlink `api/trexio/trexio_gen.py`
+→ `../trexio_gen.py`. `check_equivalence.py` → PASS (862/862 surface, 13/13 core, 878/878 ABI, name→symbol
+probes). Stub-import round-trip: all core+surface+codes present, `Error(rc)`/`string_of_error(rc)` resolve to
+`pytr.trexio_string_of_error`. Namespace diff vs original: nothing lost; only `trexio_gen` added (benign, the
+generated submodule handle).
+
+Deviation log (all behavior-identical to the original; recorded so task-2/3/5 don't re-litigate):
+1. **`string_of_error` stayed a core `def`** (per the frozen `baseline_core.txt` = the 13 core funcs), even
+   though step‑2 textually suggested it could sit in `_base` with `class Error`. Reason: the *gate* counts it as
+   a `^def` in `api/trexio.py`. Consequence: `_base.Error.__init__` calls `pytr.trexio_string_of_error`
+   directly instead of the Python `string_of_error` wrapper (byte-identical behavior — the wrapper is that call).
+2. **`get_int64_num`** (a top-level helper at the old line 34958, used by `read_determinant_list`) moved to
+   `api/trexio_gen.py` with the surface (avoids a gen→core import cycle); added to gen's `__all__`.
+3. **Gate fix:** `check_equivalence.py` `defs()` gained `re.M` (was `^def` at position‑0 only, so it read 0
+   defs for any file with a docstring — the gate could never pass). Minimal, necessary.
+4. **`__all__` added to gen** (863 names = 862 surface + `get_int64_num`) so core's `from .trexio_gen import *`
+   pulls only the API and does not leak `annotations` (bound by `from __future__ import annotations`).
+
+Post‑review verification (byte‑identity proof via `ast.get_source_segment`, all functions): the initial split
+was short one line — `evaluate_nao_radial_all` had **lost its `return amplitudes`** (an off‑by‑one in the
+hand‑cut line range). Fixed; the proof then confirmed **all 13 core functions and all 863 gen functions are
+byte‑identical to the original**. Lesson: the gate counts *names*, so a dropped trailing `return` (same name)
+would still pass `check_equivalence.py` — the source‑segment diff is what catches it.

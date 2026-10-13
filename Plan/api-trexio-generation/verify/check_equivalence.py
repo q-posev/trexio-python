@@ -31,7 +31,11 @@ from pathlib import Path
 HERE = Path(__file__).resolve().parent
 SURF = re.compile(r"^(read_|write_|has_|delete_)")
 SYMBOL = re.compile(r"pytr\.([A-Za-z_0-9]+)")
-DEF = re.compile(r"^def ([A-Za-z_][A-Za-z0-9_]*)\(")
+# NOTE: `re.M` is required so `^def` matches at the START OF EVERY LINE (not just
+# the very start of the file). Without it, `defs()` would always return 0 for a
+# file with a module docstring or any imports before the first top-level `def`.
+# Indented `def` lines (e.g. class methods) do NOT match (they have leading whitespace).
+DEF = re.compile(r"^def ([A-Za-z_][A-Za-z0-9_]*)\(", re.M)
 
 
 def read(p):

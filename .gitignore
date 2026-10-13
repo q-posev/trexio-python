@@ -12,3 +12,6 @@ test_file_py.dir/
 test_file_py.h5
 unsafe_test_file_py.dir/
 unsafe_test_file_py.h5
+
+# local working snapshots per plan task (e.g. Plan/api-trexio-generation/scratch/)
+Plan/api-trexio-generation/scratch/
