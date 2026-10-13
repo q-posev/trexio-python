@@ -57,3 +57,15 @@ Per this task's standing instruction — "if a test broke after the split, the s
 - `trexio.__version__` resolves to the TREXIO runtime version `2.6.1` (C library banner under trexpU/t5run shows `TREXIO_PACKAGE_VERSION : 2.6.1`, while the module fileset loaded is `trexio/2.6.2`) — worth a one-line sanity check by the owner; not a gate criterion.
 - `trexio.info()` prints a multi-line banner at interpreter shutdown (after pytest's summary line) — cosmetic; affects naive `tail -N` captures.
 - No test skipped/failed/xfailed; 53/53 in both venvs. No deprecation warnings surfaced in the captured tails.
+
+## Owner follow-up (resolution of the gate-6 FAIL)
+
+- Root cause confirmed by independent live A/B: in TREXIO 2.x, writing a string list
+  requires its `_num` sibling first (`write_metadata_code` without `write_metadata_code_num`
+  -> `Error: Attribute does not exist in the file`; with it -> round-trips `['alpha','beta']`).
+  The `write_metadata_code` wrapper is byte-identical to the pre-split snapshot, so this was a
+  **pre-existing bug in `Plan/api-trexio-generation/verify/check_public_namespace.py`** (its own
+  nucleus pattern already writes `num` first; the metadata pattern did not), not a split regression.
+- Fix: the gate script now does `write_metadata_code_num(fobj, 2)` before `write_metadata_code`.
+- Re-run (same installed cp310 wheel env, `check_public_namespace.py`): **RESULT: PASS, exit=0**
+  (log: `nscheck_rerun.log` next to this file).  Drop-in gate: all 11/11 gates green.

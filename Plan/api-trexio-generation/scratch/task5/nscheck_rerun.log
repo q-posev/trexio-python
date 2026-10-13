@@ -1,0 +1,6 @@
+[ok ] namespace: 862/862 surface names present
+[ok ] core names present (18/18)
+
+============================================================
+RESULT: PASS -- the split package imports and behaves like the old trexio.
+exit=0

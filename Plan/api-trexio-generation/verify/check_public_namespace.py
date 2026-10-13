@@ -95,6 +95,10 @@ def main():
         got = list(trexio.read_nucleus_charge(fobj))
         if [float(x) for x in got] != [1.0, 2.0, 3.0, 4.0]:
             failures.append(f"nucleus_charge round-trip mismatch: {got!r}")
+        # TREXIO 2.x sizes string-list writes by their `_num` sibling (the C binding
+        # returns TREXIO_ATTR_MISSING without it) -- write the count first, same as
+        # the nucleus_num -> nucleus_charge pattern above.
+        trexio.write_metadata_code_num(fobj, 2)
         trexio.write_metadata_code(fobj, ["alpha", "beta"])
         gotcode = list(trexio.read_metadata_code(fobj))
         if gotcode != ["alpha", "beta"]:
