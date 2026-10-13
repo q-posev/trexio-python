@@ -25054,15 +25054,14 @@ def write_basis_r_power(trexio_file, dset_w) -> None:
                dset_64 = np.int64(dset_w)
 
     else:
-       # FIX (Phase-4/2026-10-12, documented in PROVENANCE.md): base
-       # basis_r_power is an int64 TREXIO array field, but callers frequently
-       # pass a 1-D list of floats (e.g. [0.0, 0.0, ...] for Gaussian basis).
-       # The int64 binding rejects a bare Python list containing float elements
-       # ("TypeError: 'float' object is not iterable"). Normalize any list/tuple
-       # input to a flat int64 numpy array -- the docstring already promises
-       # "list OR numpy.ndarray ... the conversion is performed".
-       doFlatten = True
-       dset_flat = np.array(dset_w, dtype=np.int64).flatten()
+       # if input array is a multidimensional list or tuple, we have to convert it
+       try:
+           doFlatten = True
+           ncol = len(dset_w[0])
+           dset_flat = np.array(dset_w, dtype=np.int64).flatten()
+       except TypeError:
+           doFlatten = False
+           pass
 
 
     if doConversion:
