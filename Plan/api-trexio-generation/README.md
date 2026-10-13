@@ -21,6 +21,11 @@ frozen baselines are there to prove it without relying on memory.
 the Phase-3 back-end constants, kept in `_base.py`. `write_basis_r_power` is generated **like every
 other int64 array**; the old "preserve the forced-flatten" note is gone (2026-10-14).
 
+> **Shipped docs this plan re-points** (task-6): `README.md` · `PROVENANCE.md` ·
+> `docs/package-layout.md` · `docs/updating-with-trexio.md` — one consistent
+> picture: core is hand-written, the surface is generated, low-level module is the
+> nanobind drop-in; a new release = re-vendor core+json, regenerate both, test.
+
 ## Directory contents
 
 ```

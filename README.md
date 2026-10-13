@@ -4,8 +4,8 @@ Python API of the [TREXIO](https://trex-coe.github.io/trexio) library — a **na
 low-level extension that **replaces the SWIG-generated `pytrexio` binding**.
 Drop-in: `import trexio` behaves exactly as before.
 
-The package ships the TREXIO Python API (`api/trexio.py`, vendored — see
-`PROVENANCE.md`) on top of a single compiled extension:
+The package ships the TREXIO Python API (`api/trexio.py`, the hand-written
+**core** — see `PROVENANCE.md`) on top of a single compiled extension:
 
 ```
 trexio/
@@ -79,9 +79,11 @@ the C return code first), same `File` handle object.
   (parity-verified in `tests/evidence/`).
 - `handle.back_end` reads the true back end from the library via
   `trexio_get_back_end` (TREXIO 2.6 line) — useful after a `TREXIO_AUTO` open.
-- Re-vendoring the Python API (`api/trexio.py`, `third_party/trex.json`) is a
-  documented step (`PROVENANCE.md`) when the TREXIO API line changes; the
-  per-variable surface is regenerated with `tools/gen_binding.py`.
+- The truly-vendored files (`api/pytrexio/*`, `third_party/trex.json`) are
+  re-vendored on a documented step (`PROVENANCE.md`) when the TREXIO API line
+  changes; the core `api/trexio.py` is hand-maintained, and the per-variable
+  surface is **regenerated** — `api/trexio_gen.py` via `tools/gen_trexio_py.py`
+  (Python) and `src/generated_bindings.cpp` via `tools/gen_binding.py` (C++).
 
 ## Development
 
@@ -93,9 +95,12 @@ python tools/parity_api.py              # public-API contract dump (parity tooli
 ```
 
 **File discipline** (full breakdown in [`docs/package-layout.md`](docs/package-layout.md)):
-`src/generated_bindings.cpp` and `tools/required_api.names` are **generated** —
-regenerate, never hand-edit. `api/trexio.py`, `api/pytrexio/*`, and
-`third_party/trex.json` are **vendored** — re-copy them on a new TREXIO release.
+`api/trexio.py` is the **hand-written core** (lifecycle, NAO, bitfield/orbital
+helpers) — maintained by hand. `api/trexio_gen.py` (the 862 `has_/read_/write_/delete_`
+wrappers) is **generated** by `tools/gen_trexio_py.py` — regenerate, never hand-edit.
+`src/generated_bindings.cpp` and `tools/required_api.names` are also **generated** —
+regenerate, never hand-edit. `api/pytrexio/*` and `third_party/trex.json` are
+**vendored** — re-copy them on a new TREXIO release. `api/trexio/_base.py`,
 `src/core.cpp`, `src/bind_helpers.hpp`, `tools/gen_binding.py`, and `tests/` are
 **hand-maintained** — edit only when the release requires it.
 

@@ -14,7 +14,7 @@ Three inputs feed one generated output:
 |---|---|---|
 | Installed C header + lib | `$HOME/.local/include/trexio.h`, `$HOME/.local/lib*/libtrexio.so` | your `make install` of `../trexio` |
 | Data model | `third_party/trex.json` | `trexio/trex.json` |
-| Python API (the *list of functions we must expose*) | `api/trexio.py` → `tools/required_api.names` | `trexio/src/trexio.py` |
+| Python API (the *list of functions we must expose*) | `api/trexio.py` (core) → `api/trexio_gen.py` (generated) → `tools/required_api.names` | `trexio/src/trexio.py` |
 
 `tools/gen_binding.py` is **header-driven**: it parses the *installed*
 `trexio.h` for the exact C parameter shape of every required name and classifies
@@ -27,14 +27,23 @@ automatically whenever `trexio.h`, `trex.json`, `required_api.names`, or the
 script itself change — but you should run it manually first, because its
 `UNHANDLED:` list is your TODO.
 
-**Pin discipline (most important rule):** the vendored API (`api/trexio.py`),
-re-generated `generated_bindings.cpp`, and the installed `libtrexio` **must all
-come from the same TREXIO release/commit**. If `api/trexio.py` calls a C
-function that the installed lib doesn't export, the generator will report it as
-`UNHANDLED (not found in trexio.h)` — the fix is to match versions (re-vendor
-from a checkout that matches your installed lib, or install a lib that matches
-your API), never to hand-patch `api/trexio.py` unless it's a documented,
-minimal, ABI-forcing exception (see `PROVENANCE.md`).
+`tools/gen_trexio_py.py` is the **Python sibling** of `tools/gen_binding.py`:
+it takes the *same* inputs (`tools/required_api.names` + installed `trexio.h` +
+`third_party/trex.json`) and emits the 862 `has_/read_/write_/delete_` wrappers
+into `api/trexio_gen.py`. It also **exits 1** on an `UNHANDLED` name, so the C++
+and Python surfaces can't drift apart.
+
+**Pin discipline (most important rule):** the core (`api/trexio.py`), the
+generated surface (`api/trexio_gen.py` + `generated_bindings.cpp`), and the
+installed `libtrexio` **must all come from the same TREXIO release/commit**. If
+the API surface calls a C function that the installed lib doesn't export, the
+generator reports it as `UNHANDLED (not found in trexio.h)` — the fix is to match
+versions (re-vendor the vendored files and the core from a checkout that matches
+your installed lib, or install a lib that matches your API). The Python side now
+**regenerates** the surface (`tools/gen_trexio_py.py`); it no longer re-copies
+`api/trexio.py`, so a mismatch shows up as an `UNHANDLED` name, not as a
+hand-patch to the core (the core `api/trexio.py` is edited by hand only for a
+genuine, minimal, ABI-forcing change — see `PROVENANCE.md`).
 
 ## Decide which case you are in
 
@@ -65,25 +74,30 @@ grep -E "define TREXIO_(HDF5|TEXT|AUTO|MEMORY|INVALID)" $HOME/.local/include/tre
 ```
 **Stop if `make check` is red or constants moved.** Enum movement = Case C.
 
-### Step 2 — Re-vendor the API + data model (in `trexio-python`)
+### Step 2 — Re-vendor the core + data model; regenerate the surface (in `trexio-python`)
 
 ```sh
 cd ../trexio-python
 T=$(cd ../trexio && pwd)
-cp $T/src/trexio.py                 api/trexio.py
+# re-vendor the genuinely-vendored files:
 cp $T/python/pytrexio/__init__.py  api/pytrexio/__init__.py
 cp $T/python/pytrexio/_version.py  api/pytrexio/_version.py
-cp $T/trex.json                     third_party/trex.json
-ls -l api/trexio                    # both symlinks must be intact (mode 120000):
-                                    #   __init__.py  -> ../trexio.py
-                                    #   _version.py  -> ../pytrexio/_version.py
-# Refresh the provenance table in PROVENANCE.md (commit + date of $T) and,
-# if the new release changed ABI, its "Documented exception" note.
+cp $T/trex.json                    third_party/trex.json
+# the CORE is hand-maintained — port any *new* core pieces (lifecycle / NAO /
+# bitfield helpers) from $T/src/trexio.py by hand, if any; then regenerate:
+python tools/gen_trexio_py.py
+ls -l api/trexio                   # symlinks must be intact (mode 120000):
+                                    #   __init__.py   -> ../trexio.py
+                                    #   trexio_gen.py -> ../trexio_gen.py
+                                    #   _version.py   -> ../pytrexio/_version.py
+# (_base.py is a real file, not a symlink.)
+# Refresh the provenance line in PROVENANCE.md (commit + date of $T).
 ```
-If the new `src/trexio.py` no longer declares the constants exactly as the
-installed header (release lag), either wait, or re-apply the minimal
-constants-block exception and record it in `PROVENANCE.md` + `Plan/STATUS.md`
-append-only log (that is exactly what `0102739` did).
+If the new `src/trexio.py` core no longer declares the back-end constants
+exactly as the installed header (release lag), either wait, or update the
+constants block in `api/trexio/_base.py` to match the installed `trexio.h` and
+record it in `PROVENANCE.md` (that is exactly what the TREX-CoE#340 renumber —
+`AUTO=2, MEMORY=3` — required).
 
 ### Step 3 — Refresh the required-name list + regenerate
 
@@ -92,10 +106,12 @@ python3 tools/check_api_symbols.py --list          # rewrites tools/required_api
 git diff --stat tools/required_api.names           # the NEW names the API now calls — this is your delta
 cp tools/required_api.names /tmp/required.names.new
 
-python3 tools/gen_binding.py                        # header-driven; exits 1 on UNHANDLED
+python3 tools/gen_binding.py                        # C++ surface; header-driven; exits 1 on UNHANDLED
+python3 tools/gen_trexio_py.py                      # Python surface (api/trexio_gen.py); same inputs; exits 1 on UNHANDLED
 python3 tools/gen_binding.py 2>&1 | tee /tmp/gen.log
 grep -A5 "UNHANDLED" /tmp/gen.log || echo "all names mapped ✓"
 git diff --stat src/generated_bindings.cpp          # expect: additions for the new variables only
+git diff --stat api/trexio_gen.py                   # the generated Python surface (same inputs as the C++ side)
 ```
 
 - `UNHANDLED (not found in trexio.h)` → version mismatch (Step 1/2 pin
@@ -129,7 +145,7 @@ if len(P) == 3:
 #    (follow the existing m.def style; add a contract test in tests/test_abi.py).
 # 5) New back end: expose its constant in core.cpp (TREXIO_* block, pulled
 #    from the C header — auto-consistent), add a roundtrip test modeled on
-#    tests/test_memory.py, and check the vendored API's constant names match.
+#    tests/test_memory.py, and check the constant names in _base.py match.
 ```
 
 Then re-run Step 3 until `unhandled=0`.
@@ -145,9 +161,10 @@ in the Phase-3 audit — this is a hard requirement, not a nicety).
 ### Step 4 (Case C) — breaking changes
 
 1. **Enums/constants:** `core.cpp` already exposes `TREXIO_HDF5/TEXT/AUTO/MEMORY/...`
-   from the linked C header (auto-consistent). The *vendored API's* constants
-   block must match — if it doesn't (release lag), apply the documented minimal
-   patch + record in `PROVENANCE.md`.
+   from the linked C header (auto-consistent). The API's constants block — now
+   the **shared base** `api/trexio/_base.py` — must match; if it doesn't
+   (release lag, e.g. a back-end renumber), update `_base.py` to the installed
+   header and record it in `PROVENANCE.md`.
 2. **Semantics** (e.g. "AUTO cannot create", "MEMORY rejects 'r'"): the
    contracts live in `tests/test_abi.py` (the pins added in Phase 3/4) — update
    the expectations, not the binding, unless the binding itself encodes the old
@@ -193,7 +210,7 @@ TREXIO commit hash in the wheel's provenance (the Phase-5 evidence pattern).
 git add -A
 git commit -m "Update to TREXIO <$short-hash> (<one-line: what's new>)
 
-- re-vendor: api/trexio.py, api/pytrexio/*, third_party/trex.json (PROVENANCE updated)
+- re-vendor: api/pytrexio/*, third_party/trex.json; core api/trexio.py ported; regenerate api/trexio_gen.py (PROVENANCE updated)
 - required_api.names: +<n> names
 - gen_binding: <n> bindings (new families: ...); 0 unhandled, 0 cross-check warnings
 - new LOW_DIM_FN entry for <name> (if any)
@@ -215,7 +232,7 @@ git commit -m "Update to TREXIO <$short-hash> (<one-line: what's new>)
 
 | Symptom | Meaning | Fix |
 |---|---|---|
-| `UNHANDLED (not found in trexio.h)` | vendored API is from a different TREXIO line than your installed lib | match versions (Step 2/1), never patch `api/trexio.py` |
+| `UNHANDLED (not found in trexio.h)` | the core/surface is from a different TREXIO line than your installed lib | match versions (Step 1/2) — the surface regenerates; edit the core only for ABI |
 | `UNHANDLED (shape ...)` | new C signature no family covers | Step 3.5 (new emitter + classify rule) |
 | Cross-check warning | `trex.json` kind contradicts the recipe family | read the header, fix the smaller of: `trex.json` re-vendor vs. `T` remap rule |
 | SIGABRT mid-suite on a `*_low` string read | multi-entry string without a `LOW_DIM_FN` sizing var | add the `LOW_DIM_FN` mapping |
@@ -229,7 +246,9 @@ git commit -m "Update to TREXIO <$short-hash> (<one-line: what's new>)
 
 | File | Case A | Case B | Case C |
 |---|---|---|---|
-| `api/trexio.py`, `api/pytrexio/*`, `third_party/trex.json` | re-vendor | re-vendor | re-vendor (+ documented constants exception) |
+| `api/pytrexio/*`, `third_party/trex.json` | re-vendor | re-vendor | re-vendor |
+| `api/trexio.py` (core) | hand-maintain (port core if the release changes it) | hand-edit new core / NAO / bitfield helpers | core + `_base.py` constants if ABI changed |
+| `api/trexio_gen.py` (surface) | auto (generator: `tools/gen_trexio_py.py`) | auto + **`tools/gen_trexio_py.py`** (new family) | auto + `gen_trexio_py.py` (shape rules) |
 | `tools/required_api.names` | `--list` | `--list` | `--list` |
 | `src/generated_bindings.cpp` | auto (generator) | auto + **`tools/gen_binding.py`** (new family) | auto + `gen_binding.py` (shape rules) |
 | `src/core.cpp` | — | new core function / new back-end constant | enum/semantics contract |
